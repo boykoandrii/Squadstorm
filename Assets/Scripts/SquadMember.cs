@@ -4,16 +4,25 @@ using UnityEngine;
 public class SquadMember : MonoBehaviour
 {
     public Transform player; // Посилання на гравця
-    public float speed = 4f; // Швидкість бота
-    public float stoppingDistance = 2f; // Відстань, на якій бот зупиняється біля гравця
-    public float separationDistance = 1.5f; // Мінімальна відстань між солдатами
+    public float speed = 4f; 
+    public float stoppingDistance = 2f; 
+    public float separationDistance = 1.5f; 
     
-    public float jumpForce = 5f; // Сила стрибка
-    public float gravity = -15f; // Гравітація
+    [Header("Стрибки")]
+    public float jumpForce = 5f; 
+    public float gravity = -15f; 
     
+    [Header("Стрільба")]
+    public GameObject bulletPrefab; // Префаб кулі
+    public float fireRate = 0.3f; // Раз на скільки секунд солдат стріляє
+    private float nextFireTime = 0f;
+
     private float yVelocity = 0f;
-    private bool shouldJump = false; // Чи отримав наказ стрибати
+    private bool shouldJump = false; 
     private CharacterController controller;
+    
+    private bool isAiming = false; // Чи віддав командир наказ цілитись
+    private Vector3 aimTarget;     // Точка, в яку цілимось
 
     // Загальний список усіх солдатів
     private static List<SquadMember> allMembers = new List<SquadMember>();
@@ -44,6 +53,18 @@ public class SquadMember : MonoBehaviour
             if (distanceToPlayer > stoppingDistance)
             {
                 moveDirection = (playerPosXZ - transform.position).normalized;
+            }
+
+            // --- КУДИ ДИВИТЬСЯ СОЛДАТ ---
+            if (isAiming)
+            {
+                // Якщо є наказ цілитись — дивимося на маркер прицілу
+                Vector3 lookPos = new Vector3(aimTarget.x, transform.position.y, aimTarget.z);
+                transform.LookAt(lookPos);
+            }
+            else if (moveDirection != Vector3.zero)
+            {
+                // Якщо не цілимося, але біжимо — дивимося вперед
                 transform.LookAt(playerPosXZ);
             }
 
@@ -63,42 +84,60 @@ public class SquadMember : MonoBehaviour
                 }
             }
 
-            // 3. Змішуємо два рухи (по горизонталі)
+            // 3. Змішуємо два рухи
             if (moveDirection != Vector3.zero || separationDirection != Vector3.zero)
             {
                 horizontalMove = (moveDirection + separationDirection).normalized * speed;
             }
         }
 
-        // 4. Логіка стрибка з CharacterController
+        // 4. Логіка стрибка
         if (controller.isGrounded)
         {
-            yVelocity = -0.5f; // Легке притискання до землі
-
-            // Якщо отримали наказ стрибнути
+            yVelocity = -0.5f; 
             if (shouldJump)
             {
                 yVelocity = jumpForce;
-                shouldJump = false; // Скидаємо прапорець, бо вже стрибнули
+                shouldJump = false; 
             }
         }
         else
         {
-            // Якщо в повітрі — падаємо вниз
             yVelocity += gravity * Time.deltaTime;
         }
 
-        // Збираємо горизонтальний і вертикальний рух разом
         Vector3 finalVelocity = horizontalMove;
         finalVelocity.y = yVelocity;
-
-        // Рухаємо бота з урахуванням стін та кубів!
         controller.Move(finalVelocity * Time.deltaTime);
     }
 
-    // Метод, який викликає командир
     public void Jump()
     {
-        shouldJump = true; // Запам'ятовуємо наказ
+        shouldJump = true; 
+    }
+
+    // --- МЕТОДИ СТРІЛЬБИ ---
+    public void AimAt(Vector3 target)
+    {
+        isAiming = true;
+        aimTarget = target;
+    }
+
+    public void StopAiming()
+    {
+        isAiming = false;
+    }
+
+    public void TryShoot()
+    {
+        // Якщо пройшов час після минулого пострілу і нам дали префаб кулі
+        if (Time.time >= nextFireTime && bulletPrefab != null)
+        {
+            nextFireTime = Time.time + fireRate;
+            
+            // Створюємо кулю. Вона з'являється трохи попереду і вище центру солдата.
+            Vector3 spawnPos = transform.position + Vector3.up * 0.5f + transform.forward * 1f;
+            Instantiate(bulletPrefab, spawnPos, transform.rotation);
+        }
     }
 }

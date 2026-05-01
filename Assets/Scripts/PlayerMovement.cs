@@ -8,18 +8,25 @@ namespace Squadstorm.Core
         public float jumpForce = 5f;
         public float gravity = -15f;
         
-        public SimpleJoystick joystick; // Посилання на наш екранний джойстик
+        [Header("Керування (Twin-Stick)")]
+        public SimpleJoystick moveJoystick; // Лівий джойстик (біг)
+        public SimpleJoystick aimJoystick;  // Правий джойстик (приціл і стрільба)
         
+        [Header("Приціл")]
+        public Transform aimCursor; // Маркер на землі (червоний кружечок)
+        public float aimDistance = 8f; // На якій відстані літає приціл
+
         private float yVelocity = 0f;
         private CharacterController controller;
-        private bool mobileJumpRequested = false; // Чи натиснули кнопку на екрані
+        private bool mobileJumpRequested = false; 
 
         void Start()
         {
             controller = GetComponent<CharacterController>();
+            // Ховаємо маркер прицілу при старті
+            if (aimCursor != null) aimCursor.gameObject.SetActive(false); 
         }
 
-        // Цей метод ми прив'яжемо до кнопки в інтерфейсі
         public void MobileJump()
         {
             mobileJumpRequested = true;
@@ -27,40 +34,82 @@ namespace Squadstorm.Core
 
         void Update()
         {
-            // Зчитуємо клавіатуру
+            // --- 1. РУХ (Лівий джойстик / WASD) ---
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
 
-            // Якщо клавіатура мовчить, беремо дані з джойстика (якщо він є)
-            if (joystick != null)
+            if (moveJoystick != null && moveJoystick.inputVector.magnitude > 0f)
             {
-                if (horizontal == 0) horizontal = joystick.inputVector.x;
-                if (vertical == 0) vertical = joystick.inputVector.y;
+                horizontal = moveJoystick.inputVector.x;
+                vertical = moveJoystick.inputVector.y;
             }
 
-            // Напрямок руху
             Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
             Vector3 velocity = direction * moveSpeed;
 
-            // Обертаємо капсулу
-            if (direction.magnitude >= 0.1f)
+            // --- 2. ПРИЦІЛ І СТРІЛЬБА (Правий джойстик) ---
+            bool isAiming = false;
+            // Якщо правий джойстик відхилено
+            if (aimJoystick != null && aimJoystick.inputVector.magnitude > 0.1f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 15f * Time.deltaTime);
+                isAiming = true;
+                
+                // Рахуємо куди він відхилений
+                Vector3 aimDir = new Vector3(aimJoystick.inputVector.x, 0f, aimJoystick.inputVector.y).normalized;
+                
+                // Переміщаємо курсор туди
+                if (aimCursor != null)
+                {
+                    aimCursor.position = transform.position + aimDir * aimDistance;
+                    aimCursor.gameObject.SetActive(true); // Показуємо маркер
+                }
+
+                // Повертаємо гравця лицем до прицілу
+                Vector3 lookPos = transform.position + aimDir;
+                lookPos.y = transform.position.y;
+                transform.LookAt(lookPos);
+
+                // Віддаємо наказ загону: ЦІЛИТИСЬ і СТРІЛЯТИ!
+                SquadMember[] squad = FindObjectsOfType<SquadMember>();
+                foreach (var soldier in squad)
+                {
+                    if (aimCursor != null)
+                        soldier.AimAt(aimCursor.position);
+                    else
+                        soldier.AimAt(transform.position + aimDir * aimDistance);
+                        
+                    soldier.TryShoot(); // Авто-вогонь!
+                }
+            }
+            else
+            {
+                // Якщо правий джойстик відпущено
+                if (aimCursor != null) aimCursor.gameObject.SetActive(false); // Ховаємо приціл
+
+                // Якщо ми не цілимося, то повертаємося туди, куди біжимо
+                if (direction.magnitude >= 0.1f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 15f * Time.deltaTime);
+                }
+
+                // Кажемо загону опустити зброю
+                SquadMember[] squad = FindObjectsOfType<SquadMember>();
+                foreach (var soldier in squad)
+                {
+                    soldier.StopAiming();
+                }
             }
 
-            // ЛОГІКА СТРИБКА
+            // --- 3. СТРИБОК ---
             if (controller.isGrounded)
             {
                 yVelocity = -0.5f; 
-
-                // Стрибаємо, якщо натиснули Пробіл АБО екранну кнопку
                 if (Input.GetKeyDown(KeyCode.Space) || mobileJumpRequested)
                 {
-                    mobileJumpRequested = false; // Скидаємо натискання
+                    mobileJumpRequested = false; 
                     yVelocity = jumpForce; 
                     
-                    // Наказуємо всім солдатам стрибнути
                     SquadMember[] squad = FindObjectsOfType<SquadMember>();
                     foreach (var soldier in squad)
                     {
@@ -70,7 +119,7 @@ namespace Squadstorm.Core
             }
             else
             {
-                mobileJumpRequested = false; // Ігноруємо натискання в повітрі
+                mobileJumpRequested = false; 
                 yVelocity += gravity * Time.deltaTime;
             }
 
