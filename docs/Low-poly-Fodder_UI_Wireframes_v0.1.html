@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Low-poly-Fodder — UI Wireframes v0.1</title>
+<style>
+  :root {
+    --accent: #B85C38;
+    --accent-soft: #E8A88B;
+    --dark: #1F2933;
+    --muted: #667085;
+    --soft: #F4EFE6;
+    --line: #2B2B2B;
+    --green: #3F7D3F;
+    --red: #C84238;
+    --blue: #3B6BB5;
+    --yellow: #D9A441;
+    --bg: #EFEAE0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.5;
+    padding: 0 0 80px;
+  }
+  header.doc-header {
+    background: var(--dark);
+    color: white;
+    padding: 36px 48px 28px;
+    border-bottom: 6px solid var(--accent);
+  }
+  header.doc-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--accent);
+  }
+  header.doc-header .sub {
+    font-style: italic;
+    color: #ccc;
+    margin-top: 8px;
+  }
+  header.doc-header .meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #aaa;
+  }
+  header.doc-header .meta span { padding: 4px 12px; background: rgba(255,255,255,0.07); border-radius: 4px;}
+  nav.toc {
+    background: white;
+    padding: 24px 48px;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  nav.toc .toc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  nav.toc a {
+    text-decoration: none;
+    color: var(--dark);
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    font-size: 12px;
+    transition: all 0.15s;
+  }
+  nav.toc a:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  main { max-width: 1200px; margin: 0 auto; padding: 48px 32px; }
+
+  .intro {
+    background: white;
+    padding: 32px 36px;
+    border-left: 6px solid var(--accent);
+    margin-bottom: 48px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .intro h2 { color: var(--accent); margin-bottom: 12px; font-size: 22px; }
+  .intro p { margin-bottom: 8px; }
+
+  .screen-card {
+    background: white;
+    margin-bottom: 32px;
+    padding: 28px 32px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .screen-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 12px;
+  }
+  .screen-meta h2 {
+    font-size: 22px;
+    color: var(--dark);
+  }
+  .screen-meta .num {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 800;
+    background: var(--soft);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .screen-tag {
+    margin-left: auto;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding: 4px 10px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+  }
+  .screen-body {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+  .phone {
+    background: var(--dark);
+    border-radius: 28px;
+    padding: 12px 8px;
+    width: 280px;
+  }
+  .phone svg {
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    display: block;
+    background: #f8f5ee;
+  }
+  .screen-notes h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    margin-top: 16px;
+  }
+  .screen-notes h3:first-child { margin-top: 0; }
+  .screen-notes p { margin-bottom: 8px; font-size: 14px; }
+  .screen-notes ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 8px;
+  }
+  .screen-notes ul li {
+    font-size: 14px;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 5px;
+  }
+  .screen-notes ul li::before {
+    content: "▪";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .screen-notes b { color: var(--dark); font-weight: 600; }
+
+  /* SVG common styles */
+  .wf-text { font-family: -apple-system, Arial, sans-serif; fill: #1F2933; }
+  .wf-bold { font-weight: 700; }
+  .wf-line { stroke: #2B2B2B; stroke-width: 1.2; fill: none; }
+  .wf-line-soft { stroke: #999; stroke-width: 1; fill: none; }
+  .wf-fill-light { fill: #fff; stroke: #2B2B2B; stroke-width: 1; }
+  .wf-fill-soft { fill: #F4EFE6; stroke: #2B2B2B; stroke-width: 1; }
+  .wf-fill-accent { fill: #B85C38; stroke: none; }
+  .wf-fill-accent-soft { fill: #E8A88B; stroke: none; }
+  .wf-fill-dark { fill: #1F2933; stroke: none; }
+  .wf-fill-green { fill: #3F7D3F; stroke: none; }
+  .wf-fill-red { fill: #C84238; stroke: none; }
+  .wf-fill-blue { fill: #3B6BB5; stroke: none; }
+  .wf-fill-yellow { fill: #D9A441; stroke: none; }
+  .label { font-size: 8px; fill: #666; }
+  .annot { font-size: 7px; fill: #B85C38; font-style: italic; }
+
+  /* Flow diagram */
+  .flow-section {
+    background: white;
+    padding: 32px;
+    border-radius: 8px;
+    margin-top: 48px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .flow-section h2 {
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+  .flow-svg { width: 100%; height: auto; }
+
+  /* Decision log */
+  .decisions {
+    background: white;
+    padding: 32px;
+    border-radius: 8px;
+    margin-top: 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .decisions h2 {
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+  .decisions table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .decisions th, .decisions td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+  }
+  .decisions th { background: var(--soft); color: var(--dark); }
+
+  footer.doc-footer {
+    text-align: center;
+    margin-top: 48px;
+    padding: 24px;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 13px;
+  }
+
+  @media (max-width: 800px) {
+    .screen-body { grid-template-columns: 1fr; }
+    .phone { margin: 0 auto; }
+    main { padding: 24px 16px; }
+    header.doc-header { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <h1>LOW-POLY-FODDER</h1>
+  <div class="sub">UI Wireframes v0.1 — 16 ключових екранів MVP</div>
+  <div class="meta">
+    <span>Mobile-first</span>
+    <span>9:19.5 portrait</span>
+    <span>iOS 14+ / Android 9+</span>
+    <span>Lo-fi wireframes</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <h2>Зміст</h2>
+  <div class="toc-list">
+    <a href="#s1">1. Splash</a>
+    <a href="#s2">2. Boot Camp (Main)</a>
+    <a href="#s3">3. Mission Map</a>
+    <a href="#s4">4. Squad Loadout</a>
+    <a href="#s5">5. Pre-mission Briefing</a>
+    <a href="#s6">6. Gameplay HUD ★</a>
+    <a href="#s7">7. Level-Up Perk</a>
+    <a href="#s8">8. Pause Menu</a>
+    <a href="#s9">9. Victory</a>
+    <a href="#s10">10. Defeat / RIP</a>
+    <a href="#s11">11. Hill of Fame</a>
+    <a href="#s12">12. Building Upgrade</a>
+    <a href="#s13">13. Battle Pass</a>
+    <a href="#s14">14. Shop</a>
+    <a href="#s15">15. Daily Missions</a>
+    <a href="#s16">16. Co-op Lobby</a>
+    <a href="#flow">↳ Flow-діаграма</a>
+    <a href="#decisions">↳ Рішення</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="intro">
+  <h2>Як читати цей документ</h2>
+  <p>Це лоу-фай wireframes — фокус на розкладці, ієрархії та компонентах, не на фінальному арті. Чорно-сіра графіка з мілітарі-помаранчевим акцентом (<b>#B85C38</b>) — той самий, що в GDD.</p>
+  <p>Кожен екран має три блоки: <b>Призначення</b> (для чого користувачу), <b>Ключові елементи</b> (що бачимо на екрані) і <b>UX-нотатки</b> (правила поведінки, edge-cases, micro-copy).</p>
+  <p>Усі екрани — портретні (9:19.5), розраховані на одну руку. Розкладка джойстика і кнопок — як на референсних скріншотах: ліва зона = рух, права зона = дія/приціл.</p>
+</section>
+
+<!-- 1. SPLASH -->
+<section class="screen-card" id="s1">
+  <div class="screen-meta">
+    <span class="num">01</span>
+    <h2>Splash / Loading</h2>
+    <span class="screen-tag">Onboarding</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#1F2933"/>
+        <!-- Logo -->
+        <text x="120" y="160" text-anchor="middle" class="wf-text wf-bold" font-size="22" fill="#B85C38">LOW-POLY</text>
+        <text x="120" y="186" text-anchor="middle" class="wf-text wf-bold" font-size="22" fill="#B85C38">FODDER</text>
+        <line x1="60" y1="200" x2="180" y2="200" stroke="#B85C38" stroke-width="2"/>
+        <text x="120" y="216" text-anchor="middle" class="wf-text" font-size="9" fill="#aaa">(working title)</text>
+
+        <!-- Squad silhouette -->
+        <g transform="translate(80,260)">
+          <circle cx="10" cy="10" r="8" fill="#3F7D3F"/>
+          <circle cx="30" cy="10" r="8" fill="#C84238"/>
+          <circle cx="50" cy="10" r="8" fill="#D9A441"/>
+          <circle cx="70" cy="10" r="8" fill="#3B6BB5"/>
+        </g>
+
+        <!-- Loading bar -->
+        <rect x="40" y="380" width="160" height="6" rx="3" fill="#333"/>
+        <rect x="40" y="380" width="100" height="6" rx="3" fill="#B85C38"/>
+        <text x="120" y="402" text-anchor="middle" class="wf-text" font-size="9" fill="#888">Завантаження... 62%</text>
+
+        <!-- Tip -->
+        <text x="120" y="436" text-anchor="middle" class="wf-text" font-size="8" fill="#666" font-style="italic">«Гранати завдають шкоди і своїм. Кидай обережно.»</text>
+        <text x="120" y="452" text-anchor="middle" class="wf-text" font-size="7" fill="#555">Tip #042</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Перший контакт з грою. Завантажуємо асети, отримуємо config від сервера, валідуємо акаунт. Тривалість: 2-4 секунди (target).</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Логотип</b> із 4 кольоровими крапками — натяк на 4 архетипи загону.</li>
+        <li><b>Loading bar</b> з % — гравець бачить прогрес, не думає що зависло.</li>
+        <li><b>Random tip</b> — 50+ підказок з гумором у дусі Fodder.</li>
+        <li><b>Темний фон</b> — економить OLED-батарею + кінематографічно.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Якщо завантаження &gt;5 сек — додаємо анімований marching-силует, щоб не виглядало зависло.</li>
+        <li>Підказки відрізняються від tutorial-підказок: ці — для «бувалих».</li>
+        <li>На холодному старті завантажуємо тільки головне меню; біоми — за потребою через Addressables.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 2. BOOT CAMP / MAIN MENU -->
+<section class="screen-card" id="s2">
+  <div class="screen-meta">
+    <span class="num">02</span>
+    <h2>Boot Camp (Main Menu)</h2>
+    <span class="screen-tag">Meta-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#cbd6c5"/>
+        <!-- Sky -->
+        <rect width="240" height="160" fill="#a8c4d8"/>
+        <!-- Ground -->
+        <rect y="160" width="240" height="320" fill="#a3b39a"/>
+
+        <!-- Top bar: currencies -->
+        <rect x="6" y="8" width="86" height="22" rx="11" fill="#fff" stroke="#2B2B2B"/>
+        <circle cx="18" cy="19" r="6" fill="#D9A441"/>
+        <text x="32" y="22" class="wf-text wf-bold" font-size="9">2,461</text>
+        <text x="56" y="22" class="wf-text" font-size="8" fill="#666">💀 12</text>
+
+        <rect x="148" y="8" width="86" height="22" rx="11" fill="#fff" stroke="#2B2B2B"/>
+        <circle cx="160" cy="19" r="6" fill="#B85C38"/>
+        <text x="174" y="22" class="wf-text wf-bold" font-size="9">240</text>
+        <text x="216" y="22" class="wf-text wf-bold" font-size="14" fill="#B85C38">+</text>
+
+        <!-- Profile avatar -->
+        <circle cx="20" cy="48" r="13" class="wf-fill-light"/>
+        <text x="20" y="51" text-anchor="middle" class="wf-text wf-bold" font-size="9">5★</text>
+
+        <!-- Settings -->
+        <rect x="208" y="38" width="22" height="22" rx="4" class="wf-fill-light"/>
+        <text x="219" y="53" text-anchor="middle" class="wf-text" font-size="11">⚙</text>
+
+        <!-- 3D buildings (schematic) -->
+        <g>
+          <!-- Barracks -->
+          <rect x="40" y="200" width="50" height="40" class="wf-fill-soft"/>
+          <polygon points="40,200 65,180 90,200" class="wf-fill-dark"/>
+          <text x="65" y="252" text-anchor="middle" class="label">Барак Lv.2</text>
+
+          <!-- Training Range -->
+          <rect x="100" y="220" width="55" height="42" class="wf-fill-soft"/>
+          <rect x="105" y="225" width="6" height="6" fill="#B85C38"/>
+          <text x="127" y="276" text-anchor="middle" class="label">Полігон Lv.4</text>
+
+          <!-- Radio -->
+          <rect x="170" y="195" width="40" height="50" class="wf-fill-soft"/>
+          <line x1="190" y1="195" x2="190" y2="170" stroke="#2B2B2B"/>
+          <text x="190" y="258" text-anchor="middle" class="label">Радіо Lv.1</text>
+
+          <!-- Hill of Fame -->
+          <ellipse cx="120" cy="350" rx="80" ry="20" class="wf-fill-dark" opacity="0.2"/>
+          <rect x="80" y="330" width="6" height="10" fill="#888"/>
+          <rect x="100" y="328" width="6" height="12" fill="#888"/>
+          <rect x="120" y="332" width="6" height="8" fill="#888"/>
+          <rect x="140" y="328" width="6" height="12" fill="#888"/>
+          <rect x="160" y="330" width="6" height="10" fill="#888"/>
+          <text x="120" y="368" text-anchor="middle" class="wf-text" font-size="9" fill="#444">Hill of Fame</text>
+          <text x="120" y="380" text-anchor="middle" class="label">тап → меморіал</text>
+        </g>
+
+        <!-- Side Quick Actions -->
+        <rect x="6" y="280" width="40" height="40" rx="6" class="wf-fill-light"/>
+        <text x="26" y="296" text-anchor="middle" class="label" fill="#444">Battle</text>
+        <text x="26" y="306" text-anchor="middle" class="label" fill="#444">Pass</text>
+
+        <rect x="6" y="324" width="40" height="40" rx="6" class="wf-fill-light"/>
+        <text x="26" y="343" text-anchor="middle" class="label" fill="#444">Shop</text>
+
+        <rect x="194" y="280" width="40" height="40" rx="6" class="wf-fill-light"/>
+        <text x="214" y="296" text-anchor="middle" class="label" fill="#444">Daily</text>
+        <text x="214" y="306" text-anchor="middle" class="label" fill="#444">3/3</text>
+        <circle cx="226" cy="284" r="5" fill="#C84238"/>
+        <text x="226" y="287" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#fff">3</text>
+
+        <rect x="194" y="324" width="40" height="40" rx="6" class="wf-fill-light"/>
+        <text x="214" y="343" text-anchor="middle" class="label" fill="#444">Co-op</text>
+
+        <!-- BIG PLAY button -->
+        <rect x="40" y="410" width="160" height="50" rx="25" class="wf-fill-accent"/>
+        <text x="120" y="430" text-anchor="middle" class="wf-text wf-bold" font-size="14" fill="#fff">У БІЙ</text>
+        <text x="120" y="445" text-anchor="middle" class="wf-text" font-size="9" fill="#fff" opacity="0.85">Місія: Зачистити аванпост</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Хаб гри. Гравець заходить сюди після splash. Звідси — або одразу в бій (велика кнопка), або в мета-системи.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Top bar</b>: ліворуч Coins + Dog Tags, праворуч Medals (преміум) з кнопкою «+».</li>
+        <li><b>3D-сцена бази</b> — будівлі-зайцеві з плаваючою камерою, тап на будівлю → екран апгрейду.</li>
+        <li><b>Hill of Fame</b> унизу — частина пейзажу, тап → меморіал.</li>
+        <li><b>Quick actions</b> по боках: Battle Pass, Shop, Daily, Co-op (з бейджами).</li>
+        <li><b>«У БІЙ»</b> — головна CTA, найшвидший шлях у місію, вшита остання обрана.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Якщо є непрочитані Daily-нагороди — червоний бейдж на іконці.</li>
+        <li>На onboarding-кроці №3 — туторіал-стрілка тиче на «У БІЙ».</li>
+        <li>Pinch zoom по сцені бази — easter egg, можна наблизитись до RIP-каменя і прочитати епітафію.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3. MISSION MAP -->
+<section class="screen-card" id="s3">
+  <div class="screen-meta">
+    <span class="num">03</span>
+    <h2>Mission Map</h2>
+    <span class="screen-tag">Pre-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#e8d9b8"/>
+        <!-- map paper texture -->
+        <rect x="8" y="46" width="224" height="380" fill="#d8c69a" stroke="#7a5b2a" stroke-dasharray="3,3"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="#1F2933"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">ОПЕРАЦІЯ ДЖУНГЛІ</text>
+        <text x="120" y="36" text-anchor="middle" class="wf-text" font-size="8" fill="#aaa">Прогрес: 4/8</text>
+
+        <!-- Map dots: nodes -->
+        <g>
+          <line x1="30" y1="380" x2="80" y2="320" class="wf-line" stroke-dasharray="3,2"/>
+          <line x1="80" y1="320" x2="60" y2="240" class="wf-line" stroke-dasharray="3,2"/>
+          <line x1="60" y1="240" x2="120" y2="200" class="wf-line" stroke-dasharray="3,2"/>
+          <line x1="120" y1="200" x2="180" y2="160" class="wf-line" stroke-dasharray="3,2"/>
+          <line x1="180" y1="160" x2="160" y2="100" class="wf-line" stroke-dasharray="3,2"/>
+
+          <!-- Completed nodes (with checkmark) -->
+          <circle cx="30" cy="380" r="10" fill="#3F7D3F" stroke="#fff" stroke-width="2"/>
+          <text x="30" y="384" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">✓</text>
+          <circle cx="80" cy="320" r="10" fill="#3F7D3F" stroke="#fff" stroke-width="2"/>
+          <text x="80" y="324" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">✓</text>
+          <circle cx="60" cy="240" r="10" fill="#3F7D3F" stroke="#fff" stroke-width="2"/>
+          <text x="60" y="244" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">✓</text>
+          <circle cx="120" cy="200" r="10" fill="#3F7D3F" stroke="#fff" stroke-width="2"/>
+          <text x="120" y="204" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">✓</text>
+
+          <!-- Current node (pulsing) -->
+          <circle cx="180" cy="160" r="14" fill="none" stroke="#B85C38" stroke-width="2"/>
+          <circle cx="180" cy="160" r="10" fill="#B85C38" stroke="#fff" stroke-width="2"/>
+          <text x="180" y="164" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">!</text>
+
+          <!-- Locked node -->
+          <circle cx="160" cy="100" r="10" fill="#888" stroke="#fff" stroke-width="2"/>
+          <text x="160" y="104" text-anchor="middle" class="wf-text" font-size="10" fill="#fff">🔒</text>
+
+          <!-- Boss node -->
+          <polygon points="160,100 165,108 175,108 167,114 170,124 160,118 150,124 153,114 145,108 155,108" fill="none" stroke="#888"/>
+
+          <!-- Decorations -->
+          <text x="100" y="135" class="label" fill="#7a5b2a">🌴</text>
+          <text x="40" y="280" class="label" fill="#7a5b2a">🌴</text>
+          <text x="200" y="220" class="label" fill="#7a5b2a">🌴</text>
+        </g>
+
+        <!-- Selected mission card -->
+        <rect x="20" y="400" width="200" height="64" rx="8" fill="#fff" stroke="#2B2B2B"/>
+        <text x="30" y="416" class="wf-text wf-bold" font-size="11">Місія 5: Зачистити аванпост</text>
+        <text x="30" y="430" class="wf-text" font-size="9" fill="#666">★★☆ ・ ~4 хв ・ Ворогів: 18-22</text>
+        <rect x="30" y="438" width="60" height="18" rx="9" fill="#fff" stroke="#B85C38"/>
+        <text x="60" y="450" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#B85C38">ДЕТАЛІ</text>
+        <rect x="100" y="438" width="120" height="18" rx="9" class="wf-fill-accent"/>
+        <text x="160" y="450" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">У БІЙ →</text>
+
+        <!-- Annotation pointers -->
+        <text x="100" y="155" class="annot">← поточна</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Гравець обирає місію в межах кампанії-біому. Кампанія = 8 місій + бос. Прогрес зберігається.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Карта-папір</b> — стилізована топографічна мапа з пунктирами між нодами (вайб «штабна карта»).</li>
+        <li><b>Ноди</b>: зелений-✓ (пройдено), помаранчевий-! (поточна), сірий-🔒 (заблоковано), корона = бос.</li>
+        <li><b>Mission card</b> унизу: назва, складність (зірки), час, кількість ворогів. Дві CTA: Деталі та У бій.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Тап на пройдену ноду → «Replay» (можна перепройти за зменшену нагороду).</li>
+        <li>Бос-нода стає доступна після проходження всіх 8 місій біому.</li>
+        <li>Кампанії можна перемикати свайпом ліворуч/праворуч (Джунглі ↔ Сніг ↔ Пустеля).</li>
+        <li>Анімація: поточна нода пульсує помаранчевим — підкреслює «де я зараз».</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SQUAD LOADOUT -->
+<section class="screen-card" id="s4">
+  <div class="screen-meta">
+    <span class="num">04</span>
+    <h2>Squad Loadout</h2>
+    <span class="screen-tag">Pre-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#f4efe6"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="#1F2933"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">ЗАГІН</text>
+
+        <!-- Squad heroes -->
+        <g>
+          <rect x="14" y="60" width="50" height="80" rx="6" fill="#fff" stroke="#3F7D3F" stroke-width="2"/>
+          <circle cx="39" cy="85" r="14" fill="#3F7D3F"/>
+          <text x="39" y="90" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">SGT</text>
+          <text x="39" y="115" text-anchor="middle" class="wf-text wf-bold" font-size="9">Jools</text>
+          <text x="39" y="125" text-anchor="middle" class="label">★★★</text>
+          <text x="39" y="135" text-anchor="middle" class="label" fill="#3F7D3F">VETERAN</text>
+
+          <rect x="74" y="60" width="50" height="80" rx="6" fill="#fff" stroke="#C84238" stroke-width="2"/>
+          <circle cx="99" cy="85" r="14" fill="#C84238"/>
+          <text x="99" y="90" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">GRN</text>
+          <text x="99" y="115" text-anchor="middle" class="wf-text wf-bold" font-size="9">Stoo</text>
+          <text x="99" y="125" text-anchor="middle" class="label">★★☆</text>
+
+          <rect x="134" y="60" width="50" height="80" rx="6" fill="#fff" stroke="#D9A441" stroke-width="2"/>
+          <circle cx="159" cy="85" r="14" fill="#D9A441"/>
+          <text x="159" y="90" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">SNP</text>
+          <text x="159" y="115" text-anchor="middle" class="wf-text wf-bold" font-size="9">Rits</text>
+          <text x="159" y="125" text-anchor="middle" class="label">★☆☆</text>
+
+          <rect x="194" y="60" width="40" height="80" rx="6" fill="#fff" stroke="#999" stroke-dasharray="3,2"/>
+          <text x="214" y="100" text-anchor="middle" class="wf-text" font-size="20" fill="#aaa">+</text>
+          <text x="214" y="120" text-anchor="middle" class="label">Розблок:</text>
+          <text x="214" y="130" text-anchor="middle" class="label">Барак Lv.3</text>
+        </g>
+
+        <!-- Selected hero details -->
+        <rect x="14" y="156" width="212" height="120" rx="8" fill="#fff" stroke="#2B2B2B"/>
+        <text x="22" y="174" class="wf-text wf-bold" font-size="11">Jools «Лідер»</text>
+        <text x="22" y="188" class="wf-text" font-size="9" fill="#666">Виживав у 14 місіях</text>
+
+        <text x="22" y="208" class="wf-text" font-size="9">HP</text>
+        <rect x="42" y="200" width="100" height="8" fill="#eee" stroke="#999"/>
+        <rect x="42" y="200" width="80" height="8" fill="#3F7D3F"/>
+        <text x="148" y="208" class="label">120/120</text>
+
+        <text x="22" y="226" class="wf-text" font-size="9">DMG</text>
+        <rect x="42" y="218" width="100" height="8" fill="#eee" stroke="#999"/>
+        <rect x="42" y="218" width="62" height="8" fill="#B85C38"/>
+        <text x="148" y="226" class="label">42</text>
+
+        <text x="22" y="244" class="wf-text" font-size="9">SPD</text>
+        <rect x="42" y="236" width="100" height="8" fill="#eee" stroke="#999"/>
+        <rect x="42" y="236" width="78" height="8" fill="#3B6BB5"/>
+        <text x="148" y="244" class="label">+10%</text>
+
+        <rect x="22" y="252" width="195" height="18" rx="9" fill="#f4efe6" stroke="#999"/>
+        <text x="120" y="264" text-anchor="middle" class="wf-text" font-size="9">Перейменувати ・ Скін ・ Нашивки</text>
+
+        <!-- Equipment row -->
+        <text x="14" y="296" class="wf-text wf-bold" font-size="11">Спецздібність</text>
+        <rect x="14" y="304" width="50" height="50" rx="6" fill="#fff" stroke="#B85C38" stroke-width="2"/>
+        <text x="39" y="328" text-anchor="middle" class="wf-text" font-size="20">✈</text>
+        <text x="39" y="346" text-anchor="middle" class="label">AirStrike</text>
+
+        <rect x="74" y="304" width="50" height="50" rx="6" fill="#fff" stroke="#999" stroke-dasharray="2,2"/>
+        <text x="99" y="328" text-anchor="middle" class="wf-text" font-size="20" fill="#aaa">⛰</text>
+        <text x="99" y="346" text-anchor="middle" class="label" fill="#aaa">Mortar 🔒</text>
+
+        <rect x="134" y="304" width="50" height="50" rx="6" fill="#fff" stroke="#999" stroke-dasharray="2,2"/>
+        <text x="159" y="328" text-anchor="middle" class="wf-text" font-size="20" fill="#aaa">+</text>
+        <text x="159" y="346" text-anchor="middle" class="label" fill="#aaa">Heal 🔒</text>
+
+        <!-- Starting perks pool -->
+        <text x="14" y="378" class="wf-text wf-bold" font-size="11">Початковий пул перків (3/5)</text>
+        <rect x="14" y="386" width="212" height="42" rx="6" fill="#fff" stroke="#999"/>
+        <rect x="22" y="394" width="60" height="26" rx="4" fill="#f4efe6" stroke="#3B6BB5"/>
+        <text x="52" y="410" text-anchor="middle" class="wf-text" font-size="8">Medic Pack</text>
+        <rect x="90" y="394" width="60" height="26" rx="4" fill="#f4efe6" stroke="#B85C38"/>
+        <text x="120" y="410" text-anchor="middle" class="wf-text" font-size="8">Tact. Spread</text>
+        <rect x="158" y="394" width="60" height="26" rx="4" fill="#f4efe6" stroke="#999" stroke-dasharray="2,2"/>
+        <text x="188" y="410" text-anchor="middle" class="wf-text" font-size="8" fill="#aaa">+ дод.</text>
+
+        <!-- Bottom CTA -->
+        <rect x="14" y="442" width="212" height="32" rx="16" class="wf-fill-accent"/>
+        <text x="120" y="462" text-anchor="middle" class="wf-text wf-bold" font-size="12" fill="#fff">У БІЙ →</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Гравець бачить, з ким йде на місію, обирає спецздібність і початковий пул перків (стартові гарантовані картки в roguelike-пулі).</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Squad row</b> з 3-4 героями, 4-й слот заблокований до апгрейду Барака.</li>
+        <li><b>Тап на героя</b> → деталі (HP/DMG/SPD), статистика, опції перейменування і скіну.</li>
+        <li><b>Спецздібність</b>: одна з 3 (AirStrike, Mortar, Healing Drone) — розблок через Радіо.</li>
+        <li><b>Initial perk pool</b> — 3-5 гарантованих перків. Розширюється через Кав'ярню.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Veteran-герої виділені зеленою рамкою — гравець відчуває цінність.</li>
+        <li>Якщо герой загинув у попередній місії — слот пустий, з RIP-наліпкою. Замість нього — рекрут.</li>
+        <li>Drag-and-drop для перевпорядкування загону (порядок впливає на формацію).</li>
+        <li>Показуємо «Перевірте склад загону!» якщо хтось у червоній зоні HP після попередньої місії.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PRE-MISSION BRIEFING -->
+<section class="screen-card" id="s5">
+  <div class="screen-meta">
+    <span class="num">05</span>
+    <h2>Pre-mission Briefing</h2>
+    <span class="screen-tag">Pre-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#1F2933"/>
+        <!-- Cinematic frame -->
+        <rect x="0" y="0" width="240" height="60" fill="#000"/>
+        <rect x="0" y="420" width="240" height="60" fill="#000"/>
+
+        <!-- "Briefing" header -->
+        <text x="120" y="38" text-anchor="middle" class="wf-text wf-bold" font-size="16" fill="#B85C38">БРИФІНГ</text>
+        <line x1="80" y1="46" x2="160" y2="46" stroke="#B85C38" stroke-width="1"/>
+
+        <!-- Map preview -->
+        <rect x="20" y="80" width="200" height="120" fill="#3a4f3a" stroke="#666"/>
+        <text x="120" y="100" text-anchor="middle" class="wf-text" font-size="10" fill="#aaa">[mission map preview]</text>
+        <text x="40" y="130" class="wf-text" font-size="20">📍</text>
+        <text x="190" y="170" class="wf-text" font-size="20">🎯</text>
+        <line x1="50" y1="135" x2="185" y2="165" stroke="#B85C38" stroke-dasharray="3,3"/>
+
+        <!-- Mission details -->
+        <text x="20" y="220" class="wf-text wf-bold" font-size="14" fill="#fff">Зачистити аванпост #237</text>
+        <text x="20" y="234" class="wf-text" font-size="9" fill="#999" font-style="italic">Звільнити речі, які не хочуть бути звільненими</text>
+
+        <!-- Objectives -->
+        <text x="20" y="260" class="wf-text wf-bold" font-size="11" fill="#B85C38">МЕТА</text>
+        <text x="20" y="278" class="wf-text" font-size="10" fill="#fff">▪ Зачистити 8 ворогів</text>
+        <text x="20" y="294" class="wf-text" font-size="10" fill="#fff">▪ Зруйнувати 2 будівлі</text>
+        <text x="20" y="310" class="wf-text" font-size="10" fill="#888" font-style="italic">▪ Бонус: ніхто не загинув (+50% coins)</text>
+
+        <!-- Conditions -->
+        <text x="20" y="336" class="wf-text wf-bold" font-size="11" fill="#B85C38">УМОВИ</text>
+        <text x="20" y="354" class="wf-text" font-size="10" fill="#fff">⏱ 5 хвилин</text>
+        <text x="120" y="354" class="wf-text" font-size="10" fill="#fff">🌧 Дощ (-10% видимість)</text>
+
+        <!-- Rewards -->
+        <text x="20" y="380" class="wf-text wf-bold" font-size="11" fill="#B85C38">НАГОРОДА</text>
+        <circle cx="28" cy="396" r="5" fill="#D9A441"/>
+        <text x="38" y="400" class="wf-text wf-bold" font-size="10" fill="#fff">120</text>
+        <text x="68" y="400" class="wf-text" font-size="10" fill="#fff">+ 80 XP</text>
+        <rect x="120" y="390" width="90" height="14" rx="7" fill="#3a4f3a" stroke="#B85C38"/>
+        <text x="165" y="400" text-anchor="middle" class="wf-text" font-size="8" fill="#B85C38">Battle Pass +1</text>
+
+        <!-- CTA -->
+        <rect x="40" y="436" width="160" height="34" rx="17" class="wf-fill-accent"/>
+        <text x="120" y="458" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">ВИСАДКА →</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Останній екран перед геймплеєм. Кінематографічний, з вайбом «штаб». Гравець розуміє, чого очікувати, бачить нагороду і свідомо натискає «висадка».</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Map preview</b> — мінімапа з точкою висадки і ціллю.</li>
+        <li><b>Назва місії</b> + сатиричний підзаголовок (іронія Fodder).</li>
+        <li><b>Objectives</b>: основні + бонусні (gray italic).</li>
+        <li><b>Conditions</b>: час, погода, модифікатори (для дейлі-місій тут найцікавіше).</li>
+        <li><b>Rewards</b>: Coins + XP + Battle Pass progress.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Звукова доріжка: мілітарна барабанна доріжка наростає до натискання CTA.</li>
+        <li>Кнопка «ВИСАДКА» — навмисне червоніша, підвищує адреналін.</li>
+        <li>Можна свайпнути назад до Loadout якщо передумав.</li>
+        <li>Бонус-цілі гравець виявляє вже тут — це створює мотивацію вийти на ризик.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 6. GAMEPLAY HUD -->
+<section class="screen-card" id="s6">
+  <div class="screen-meta">
+    <span class="num">06</span>
+    <h2>Gameplay HUD ★</h2>
+    <span class="screen-tag">In-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <!-- Game world -->
+        <rect width="240" height="480" fill="#7a9b6e"/>
+
+        <!-- Schematic terrain -->
+        <circle cx="50" cy="120" r="20" fill="#5a7b4e" opacity="0.5"/>
+        <circle cx="180" cy="200" r="25" fill="#5a7b4e" opacity="0.5"/>
+        <circle cx="100" cy="350" r="18" fill="#5a7b4e" opacity="0.5"/>
+
+        <!-- Squad -->
+        <g transform="translate(70,280)">
+          <circle cx="0" cy="0" r="6" fill="#3F7D3F"/>
+          <rect x="-6" y="-12" width="12" height="2" fill="#3F7D3F"/>
+          <text x="0" y="-15" text-anchor="middle" class="label" fill="#fff" font-size="6">SGT</text>
+          <line x1="0" y1="0" x2="20" y2="-30" stroke="#FFD700" stroke-width="1.5"/>
+        </g>
+        <g transform="translate(90,290)">
+          <circle cx="0" cy="0" r="6" fill="#C84238"/>
+          <rect x="-6" y="-12" width="9" height="2" fill="#C84238"/>
+          <line x1="0" y1="0" x2="25" y2="-25" stroke="#FFD700" stroke-width="1.5"/>
+        </g>
+        <g transform="translate(60,300)">
+          <circle cx="0" cy="0" r="6" fill="#D9A441"/>
+          <rect x="-6" y="-12" width="6" height="2" fill="#D9A441"/>
+        </g>
+        <g transform="translate(80,310)">
+          <circle cx="0" cy="0" r="6" fill="#3B6BB5"/>
+          <rect x="-6" y="-12" width="12" height="2" fill="#3B6BB5"/>
+        </g>
+
+        <!-- Enemies -->
+        <circle cx="160" cy="180" r="5" fill="#444"/>
+        <circle cx="180" cy="170" r="5" fill="#444"/>
+        <circle cx="170" cy="200" r="5" fill="#444"/>
+
+        <!-- RIP tombstone -->
+        <rect x="110" y="220" width="6" height="10" fill="#888"/>
+        <rect x="106" y="216" width="14" height="6" fill="#888"/>
+        <text x="113" y="224" text-anchor="middle" class="label" font-size="3" fill="#fff">RIP</text>
+
+        <!-- Top-left: Mission objective -->
+        <rect x="6" y="6" width="100" height="36" rx="6" fill="rgba(0,0,0,0.65)"/>
+        <text x="14" y="20" class="wf-text wf-bold" font-size="9" fill="#fff">⭐ Зачистити</text>
+        <text x="14" y="34" class="wf-text" font-size="11" fill="#B85C38" font-weight="700">4/8</text>
+
+        <!-- Top-center: Timer -->
+        <rect x="100" y="6" width="40" height="24" rx="6" fill="rgba(0,0,0,0.65)"/>
+        <text x="120" y="22" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">03:18</text>
+
+        <!-- Top-right: Minimap -->
+        <circle cx="216" cy="26" r="20" fill="rgba(0,0,0,0.65)"/>
+        <circle cx="216" cy="26" r="2" fill="#3F7D3F"/>
+        <circle cx="222" cy="22" r="1.5" fill="#C84238"/>
+        <circle cx="220" cy="32" r="1.5" fill="#C84238"/>
+
+        <!-- Pause -->
+        <rect x="170" y="56" width="22" height="22" rx="4" fill="rgba(0,0,0,0.55)"/>
+        <text x="181" y="71" text-anchor="middle" class="wf-text" font-size="11" fill="#fff">‖</text>
+
+        <!-- Currency in-run -->
+        <rect x="6" y="50" width="60" height="20" rx="10" fill="rgba(0,0,0,0.65)"/>
+        <circle cx="16" cy="60" r="4" fill="#D9A441"/>
+        <text x="24" y="63" class="wf-text wf-bold" font-size="9" fill="#fff">36</text>
+        <text x="46" y="63" class="wf-text" font-size="8" fill="#fff">XP 142</text>
+
+        <!-- Perk just earned (toast) -->
+        <rect x="60" y="90" width="120" height="22" rx="11" fill="#3F7D3F"/>
+        <text x="120" y="104" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">+ Medic Pack</text>
+
+        <!-- Bottom-left: Joystick -->
+        <circle cx="44" cy="430" r="32" fill="rgba(0,0,0,0.35)" stroke="#fff" stroke-width="1"/>
+        <circle cx="44" cy="430" r="14" fill="rgba(255,255,255,0.6)"/>
+        <text x="44" y="397" text-anchor="middle" class="label" fill="#fff">▲</text>
+        <text x="44" y="468" text-anchor="middle" class="label" fill="#fff">▼</text>
+        <text x="13" y="434" text-anchor="middle" class="label" fill="#fff">◄</text>
+        <text x="76" y="434" text-anchor="middle" class="label" fill="#fff">►</text>
+
+        <!-- Bottom-right: Aim button -->
+        <circle cx="170" cy="430" r="22" fill="rgba(0,0,0,0.35)" stroke="#fff" stroke-width="1"/>
+        <circle cx="170" cy="430" r="8" fill="none" stroke="#fff" stroke-width="1.2"/>
+        <line x1="156" y1="430" x2="184" y2="430" stroke="#fff"/>
+        <line x1="170" y1="416" x2="170" y2="444" stroke="#fff"/>
+
+        <!-- Grenade button -->
+        <circle cx="210" cy="400" r="16" fill="rgba(0,0,0,0.35)" stroke="#fff" stroke-width="1"/>
+        <text x="210" y="404" text-anchor="middle" class="wf-text" font-size="14" fill="#fff">💣</text>
+        <circle cx="222" cy="390" r="6" fill="#B85C38"/>
+        <text x="222" y="392" text-anchor="middle" class="wf-text wf-bold" font-size="7" fill="#fff">2</text>
+
+        <!-- Special ability -->
+        <circle cx="210" cy="446" r="14" fill="#B85C38" opacity="0.85"/>
+        <text x="210" y="450" text-anchor="middle" class="wf-text" font-size="13" fill="#fff">✈</text>
+        <text x="210" y="466" text-anchor="middle" class="label" fill="#fff">14s</text>
+
+        <!-- Ammo counter -->
+        <rect x="146" y="392" width="48" height="18" rx="9" fill="rgba(0,0,0,0.65)"/>
+        <text x="170" y="404" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">30/120</text>
+
+        <!-- Floating damage numbers -->
+        <text x="165" y="170" class="wf-text wf-bold" font-size="10" fill="#FFD700">-25</text>
+        <text x="180" y="160" class="wf-text wf-bold" font-size="8" fill="#fff">-12</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Найважливіший екран. Те, що гравець бачить 80% часу. Розкладка 1-в-1 повторює референсні скріншоти, бо вже валідована Brawl Stars.</p>
+      <h3>Ключові елементи (top → bottom)</h3>
+      <ul>
+        <li><b>Top-left</b>: ціль місії з прогресом (4/8) + іконка зірки.</li>
+        <li><b>Top-center</b>: таймер 03:18 (mm:ss).</li>
+        <li><b>Top-right</b>: кругла мінімапа з зеленими/червоними крапками (свої/вороги).</li>
+        <li><b>Pause</b> та <b>currency in-run</b> — нижче під top-bar, не заважають.</li>
+        <li><b>Toast</b> для подій (новий перк, поранення, бос на горизонті).</li>
+        <li><b>Joystick</b> зліва — рухає весь загін як формацію.</li>
+        <li><b>Aim button</b> справа — drag для прицілу. Auto-aim коли відпущено.</li>
+        <li><b>Grenade</b> з лічильником (2). Tap = кидок у напрямку прицілу.</li>
+        <li><b>Special</b> (AirStrike/Mortar/Heal) з cooldown.</li>
+        <li><b>Ammo counter</b> 30/120 — як у Cannon Fodder.</li>
+        <li><b>RIP</b>-надгробок — на місці смерті солдата (фізичне укриття).</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Хелсбари над солдатами кольорові за класом — швидке впізнавання.</li>
+        <li>Жовті лінії — траєкторія куль (для відчуття стрільби).</li>
+        <li>Floating damage numbers — soft (small) для куль, bold для крит-удар.</li>
+        <li>На critical HP (&lt;30%) — пульсуючий червоний vignette на краях екрану.</li>
+        <li>Toast зникають через 1.5 сек, не накопичуються.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 7. LEVEL-UP PERK CARD -->
+<section class="screen-card" id="s7">
+  <div class="screen-meta">
+    <span class="num">07</span>
+    <h2>Level-Up: Вибір перка</h2>
+    <span class="screen-tag">In-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <!-- Frozen game world (blurred) -->
+        <rect width="240" height="480" fill="#7a9b6e"/>
+        <rect width="240" height="480" fill="rgba(0,0,0,0.55)"/>
+
+        <!-- Title -->
+        <text x="120" y="50" text-anchor="middle" class="wf-text wf-bold" font-size="14" fill="#B85C38">РІВЕНЬ 4</text>
+        <text x="120" y="68" text-anchor="middle" class="wf-text" font-size="11" fill="#fff">Обери підсилення</text>
+
+        <!-- 3 perk cards -->
+        <g>
+          <!-- Card 1 (common - gray) -->
+          <rect x="14" y="90" width="212" height="100" rx="10" fill="#fff" stroke="#888" stroke-width="3"/>
+          <rect x="14" y="90" width="60" height="100" rx="10" fill="#888"/>
+          <text x="44" y="146" text-anchor="middle" class="wf-text" font-size="20" fill="#fff">+</text>
+          <text x="44" y="178" text-anchor="middle" class="label" fill="#fff">COMMON</text>
+          <text x="84" y="115" class="wf-text wf-bold" font-size="12" fill="#1F2933">Extended Mag</text>
+          <text x="84" y="132" class="wf-text" font-size="9" fill="#666">+50% боєкомплект</text>
+          <text x="84" y="150" class="wf-text" font-size="9" fill="#666">для всього загону.</text>
+          <text x="84" y="178" class="wf-text" font-size="9" fill="#888" font-style="italic">«Ще трохи свинцю — і все.»</text>
+
+          <!-- Card 2 (epic - orange) - HIGHLIGHTED -->
+          <rect x="14" y="200" width="212" height="100" rx="10" fill="#fff" stroke="#B85C38" stroke-width="3"/>
+          <rect x="14" y="200" width="60" height="100" rx="10" fill="#B85C38"/>
+          <text x="44" y="256" text-anchor="middle" class="wf-text" font-size="22" fill="#fff">💣</text>
+          <text x="44" y="288" text-anchor="middle" class="label" fill="#fff">EPIC</text>
+          <text x="84" y="225" class="wf-text wf-bold" font-size="12" fill="#1F2933">Cluster Bombs</text>
+          <text x="84" y="242" class="wf-text" font-size="9" fill="#666">Гранати розпадаються</text>
+          <text x="84" y="256" class="wf-text" font-size="9" fill="#666">на 3 менші після вибуху.</text>
+          <text x="84" y="288" class="wf-text" font-size="9" fill="#B85C38" font-style="italic">«А давайте ще раз.»</text>
+
+          <!-- Card 3 (rare - blue) -->
+          <rect x="14" y="310" width="212" height="100" rx="10" fill="#fff" stroke="#3B6BB5" stroke-width="3"/>
+          <rect x="14" y="310" width="60" height="100" rx="10" fill="#3B6BB5"/>
+          <text x="44" y="366" text-anchor="middle" class="wf-text" font-size="22" fill="#fff">+</text>
+          <text x="44" y="398" text-anchor="middle" class="label" fill="#fff">RARE</text>
+          <text x="84" y="335" class="wf-text wf-bold" font-size="12" fill="#1F2933">Combat Stim</text>
+          <text x="84" y="352" class="wf-text" font-size="9" fill="#666">Убивство зцілює +5HP.</text>
+          <text x="84" y="370" class="wf-text" font-size="9" fill="#666">Стакається.</text>
+          <text x="84" y="398" class="wf-text" font-size="9" fill="#3B6BB5" font-style="italic">«Кров — найкращий тонік.»</text>
+        </g>
+
+        <!-- Reroll button (rewarded ad) -->
+        <rect x="40" y="430" width="160" height="32" rx="16" fill="rgba(255,255,255,0.15)" stroke="#fff"/>
+        <text x="120" y="450" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">▶ Перетасувати (1/1)</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Кожні 60 сек гравець обирає один з 3 перків. Це — ядро roguelike-петлі. Гра ставиться на паузу.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>3 картки</b> з різною рідкісністю: сірий-синій-помаранчевий-золотий (рівні позначені кольором рамки і боку).</li>
+        <li><b>Назва + опис</b> — короткий, чесний (без маркетингу).</li>
+        <li><b>Flavor-text</b> — гумористична цитата в дусі Fodder.</li>
+        <li><b>Reroll за рекламу</b> — 1 раз за забіг, для F2P-гравців.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Тап на картку — підсвічується + з'являється «✓ Обрати». Подвійний тап = підтвердити (запобігає випадкам).</li>
+        <li>Алгоритм видачі: 60% common, 30% rare, 9% epic, 1% legendary (см. GDD).</li>
+        <li>Якщо гравець уже взяв цей перк — на картці бейдж «Lv.2» — стак.</li>
+        <li>Гра не unpause-ється поки не обрано картку (запобігає ad-skip-абьюзу).</li>
+        <li>На onboarding-кроку перших 3 разів додається tooltip з поясненням рідкісності.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8. PAUSE MENU -->
+<section class="screen-card" id="s8">
+  <div class="screen-meta">
+    <span class="num">08</span>
+    <h2>Pause Menu</h2>
+    <span class="screen-tag">In-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#7a9b6e"/>
+        <rect width="240" height="480" fill="rgba(0,0,0,0.7)"/>
+
+        <text x="120" y="60" text-anchor="middle" class="wf-text wf-bold" font-size="20" fill="#fff">ПАУЗА</text>
+        <line x1="80" y1="72" x2="160" y2="72" stroke="#B85C38" stroke-width="2"/>
+
+        <!-- Squad status -->
+        <rect x="14" y="90" width="212" height="80" rx="6" fill="rgba(255,255,255,0.08)"/>
+        <text x="22" y="108" class="wf-text wf-bold" font-size="11" fill="#fff">Стан загону</text>
+
+        <g transform="translate(22,118)">
+          <circle cx="6" cy="14" r="6" fill="#3F7D3F"/>
+          <text x="18" y="18" class="wf-text" font-size="9" fill="#fff">Jools</text>
+          <rect x="50" y="10" width="60" height="6" fill="#333"/>
+          <rect x="50" y="10" width="48" height="6" fill="#3F7D3F"/>
+        </g>
+        <g transform="translate(120,118)">
+          <circle cx="6" cy="14" r="6" fill="#C84238"/>
+          <text x="18" y="18" class="wf-text" font-size="9" fill="#fff">Stoo</text>
+          <rect x="50" y="10" width="56" height="6" fill="#333"/>
+          <rect x="50" y="10" width="22" height="6" fill="#C84238"/>
+        </g>
+        <g transform="translate(22,140)">
+          <circle cx="6" cy="14" r="6" fill="#D9A441"/>
+          <text x="18" y="18" class="wf-text" font-size="9" fill="#fff">Rits</text>
+          <rect x="50" y="10" width="60" height="6" fill="#333"/>
+          <rect x="50" y="10" width="36" height="6" fill="#D9A441"/>
+        </g>
+        <g transform="translate(120,140)">
+          <text x="0" y="18" class="wf-text" font-size="9" fill="#888">— RIP —</text>
+        </g>
+
+        <!-- Active perks -->
+        <text x="20" y="194" class="wf-text wf-bold" font-size="11" fill="#fff">Активні перки (3)</text>
+        <rect x="20" y="200" width="60" height="22" rx="11" fill="#3B6BB5"/>
+        <text x="50" y="214" text-anchor="middle" class="wf-text" font-size="8" fill="#fff">Medic Pack</text>
+        <rect x="84" y="200" width="60" height="22" rx="11" fill="#B85C38"/>
+        <text x="114" y="214" text-anchor="middle" class="wf-text" font-size="8" fill="#fff">Cluster x1</text>
+        <rect x="148" y="200" width="60" height="22" rx="11" fill="#888"/>
+        <text x="178" y="214" text-anchor="middle" class="wf-text" font-size="8" fill="#fff">Ext.Mag</text>
+
+        <!-- Buttons -->
+        <rect x="40" y="248" width="160" height="38" rx="6" class="wf-fill-accent"/>
+        <text x="120" y="272" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">▶ ПРОДОВЖИТИ</text>
+
+        <rect x="40" y="296" width="160" height="34" rx="6" fill="rgba(255,255,255,0.1)" stroke="#fff"/>
+        <text x="120" y="318" text-anchor="middle" class="wf-text" font-size="11" fill="#fff">⚙ Налаштування</text>
+
+        <rect x="40" y="340" width="160" height="34" rx="6" fill="rgba(255,255,255,0.1)" stroke="#fff"/>
+        <text x="120" y="362" text-anchor="middle" class="wf-text" font-size="11" fill="#fff">? Як грати</text>
+
+        <rect x="40" y="384" width="160" height="34" rx="6" fill="rgba(200,66,56,0.2)" stroke="#C84238"/>
+        <text x="120" y="406" text-anchor="middle" class="wf-text" font-size="11" fill="#C84238">Здатися (втратити XP)</text>
+
+        <text x="120" y="448" text-anchor="middle" class="wf-text" font-size="9" fill="#888" font-style="italic">«Втеча — це теж тактика. Жалюгідна.»</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Дати гравцю миттєву паузу + контекст (статус загону, активні перки) + швидкі дії.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Стан загону</b> — кольорові HP-бари (живі), «RIP» позначка для загиблих.</li>
+        <li><b>Активні перки</b> — таблетки з кольорами рідкісності, з показником стаку.</li>
+        <li><b>Продовжити</b> — велика помаранчева, головна дія.</li>
+        <li><b>Налаштування</b> — швидкий доступ до звуку/керування без виходу.</li>
+        <li><b>Здатися</b> — деструктивна дія, червона рамка, штраф у XP, з підтвердженням.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Гра поставлена на паузу, але стан зберігається. Якщо app loses focus — pause auto.</li>
+        <li>Якщо HP &lt; 30% хоч в одного — їхній бар пульсує жовтим.</li>
+        <li>«Здатися» вимагає 2-секундного утримання, щоб запобігти випадковим тапам.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9. VICTORY -->
+<section class="screen-card" id="s9">
+  <div class="screen-meta">
+    <span class="num">09</span>
+    <h2>Mission Complete (Victory)</h2>
+    <span class="screen-tag">Post-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#1F2933"/>
+        <!-- Confetti / stars -->
+        <text x="40" y="60" class="wf-text" font-size="14" fill="#FFD700">★</text>
+        <text x="200" y="80" class="wf-text" font-size="10" fill="#FFD700">★</text>
+        <text x="180" y="50" class="wf-text" font-size="14" fill="#FFD700">★</text>
+        <text x="60" y="90" class="wf-text" font-size="10" fill="#FFD700">★</text>
+
+        <!-- Header -->
+        <text x="120" y="80" text-anchor="middle" class="wf-text wf-bold" font-size="22" fill="#3F7D3F">ПЕРЕМОГА!</text>
+        <text x="120" y="98" text-anchor="middle" class="wf-text" font-size="10" fill="#fff" font-style="italic">«Ну от, тепер інші вороги.»</text>
+
+        <!-- Stars (objectives) -->
+        <text x="80" y="130" text-anchor="middle" class="wf-text" font-size="22" fill="#FFD700">★</text>
+        <text x="120" y="130" text-anchor="middle" class="wf-text" font-size="22" fill="#FFD700">★</text>
+        <text x="160" y="130" text-anchor="middle" class="wf-text" font-size="22" fill="#888">★</text>
+        <text x="120" y="148" text-anchor="middle" class="wf-text" font-size="9" fill="#888">2 з 3 цілей</text>
+
+        <!-- Stats -->
+        <rect x="20" y="164" width="200" height="100" rx="6" fill="rgba(255,255,255,0.08)"/>
+        <text x="30" y="182" class="wf-text" font-size="9" fill="#aaa">Час</text>
+        <text x="210" y="182" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#fff">04:12</text>
+        <text x="30" y="200" class="wf-text" font-size="9" fill="#aaa">Вбивств</text>
+        <text x="210" y="200" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#fff">22</text>
+        <text x="30" y="218" class="wf-text" font-size="9" fill="#aaa">Точність</text>
+        <text x="210" y="218" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#fff">68%</text>
+        <text x="30" y="236" class="wf-text" font-size="9" fill="#aaa">Рекордна серія</text>
+        <text x="210" y="236" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#FFD700">×8</text>
+        <text x="30" y="254" class="wf-text" font-size="9" fill="#C84238">Втрати</text>
+        <text x="210" y="254" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#C84238">1 (Stoo)</text>
+
+        <!-- Rewards -->
+        <text x="120" y="288" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#B85C38">НАГОРОДА</text>
+        <rect x="20" y="296" width="200" height="100" rx="6" fill="rgba(255,255,255,0.08)"/>
+
+        <circle cx="40" cy="320" r="10" fill="#D9A441"/>
+        <text x="40" y="324" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">$</text>
+        <text x="58" y="326" class="wf-text wf-bold" font-size="13" fill="#fff">+ 184 Coins</text>
+        <text x="178" y="326" class="wf-text" font-size="9" fill="#3F7D3F">+ бонус ×1.5</text>
+
+        <circle cx="40" cy="350" r="10" fill="#3B6BB5"/>
+        <text x="40" y="354" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">XP</text>
+        <text x="58" y="356" class="wf-text wf-bold" font-size="13" fill="#fff">+ 96 XP</text>
+
+        <rect x="22" y="370" width="196" height="6" rx="3" fill="#333"/>
+        <rect x="22" y="370" width="120" height="6" rx="3" fill="#B85C38"/>
+        <text x="22" y="388" class="label">Battle Pass: 12/15 → 13/15</text>
+
+        <!-- CTAs -->
+        <rect x="20" y="406" width="92" height="32" rx="6" fill="rgba(255,255,255,0.15)" stroke="#fff"/>
+        <text x="66" y="426" text-anchor="middle" class="wf-text" font-size="11" fill="#fff">▶ +50% (Ad)</text>
+
+        <rect x="120" y="406" width="100" height="32" rx="6" class="wf-fill-accent"/>
+        <text x="170" y="426" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">ДАЛІ →</text>
+
+        <text x="120" y="458" text-anchor="middle" class="wf-text" font-size="9" fill="#666">Stoo приєднається до Hill of Fame</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Закрити петлю забігу. Гравець отримує дофамін, бачить нагороду, опціонально подвоює її через рекламу.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>«ПЕРЕМОГА!»</b> + сатиричний підпис.</li>
+        <li><b>Зірки 3/3</b> — основна + бонусні цілі.</li>
+        <li><b>Stats card</b> — час, вбивства, точність, серії, втрати (червоним).</li>
+        <li><b>Rewards card</b> — Coins, XP, Battle Pass progress (видимий бар).</li>
+        <li><b>Watch ad → +50% Coins</b> — головний джерело реклами.</li>
+        <li>Якщо хтось загинув — теплий нагадувач «X приєднається до Hill of Fame».</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Анімація: цифри тікаючи рахуються до фінального значення (juice).</li>
+        <li>Bonus ×1.5 за «ніхто не загинув» — окрема нагорода, не комбінується з ad.</li>
+        <li>Якщо отримано рідкісний предмет (drop з боса) — додаткове Modal-вікно перед нагородами.</li>
+        <li>Звук: фанфари + класичний marching whistle theme.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 10. DEFEAT -->
+<section class="screen-card" id="s10">
+  <div class="screen-meta">
+    <span class="num">10</span>
+    <h2>Mission Failed (Defeat)</h2>
+    <span class="screen-tag">Post-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#1F2933"/>
+        <rect width="240" height="480" fill="rgba(40,30,30,0.5)"/>
+
+        <text x="120" y="64" text-anchor="middle" class="wf-text wf-bold" font-size="20" fill="#C84238">ВЕСЬ ЗАГІН ЗАГИНУВ</text>
+        <text x="120" y="84" text-anchor="middle" class="wf-text" font-size="10" fill="#aaa" font-style="italic">«А місія така проста була…»</text>
+
+        <!-- Tombstones -->
+        <g transform="translate(40,110)">
+          <rect x="0" y="20" width="30" height="40" fill="#666"/>
+          <rect x="-4" y="14" width="38" height="14" fill="#666"/>
+          <text x="15" y="32" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#fff">RIP</text>
+          <text x="15" y="44" text-anchor="middle" class="wf-text wf-bold" font-size="7" fill="#fff">Jools</text>
+          <text x="15" y="74" text-anchor="middle" class="label">Лідер</text>
+        </g>
+        <g transform="translate(90,110)">
+          <rect x="0" y="20" width="30" height="40" fill="#666"/>
+          <rect x="-4" y="14" width="38" height="14" fill="#666"/>
+          <text x="15" y="32" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#fff">RIP</text>
+          <text x="15" y="44" text-anchor="middle" class="wf-text wf-bold" font-size="7" fill="#fff">Stoo</text>
+          <text x="15" y="74" text-anchor="middle" class="label">Гранатометник</text>
+        </g>
+        <g transform="translate(140,110)">
+          <rect x="0" y="20" width="30" height="40" fill="#666"/>
+          <rect x="-4" y="14" width="38" height="14" fill="#666"/>
+          <text x="15" y="32" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#fff">RIP</text>
+          <text x="15" y="44" text-anchor="middle" class="wf-text wf-bold" font-size="7" fill="#fff">Rits</text>
+          <text x="15" y="74" text-anchor="middle" class="label">Снайпер</text>
+        </g>
+        <g transform="translate(190,110)">
+          <rect x="0" y="20" width="30" height="40" fill="#666"/>
+          <rect x="-4" y="14" width="38" height="14" fill="#666"/>
+          <text x="15" y="32" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#fff">RIP</text>
+          <text x="15" y="44" text-anchor="middle" class="wf-text wf-bold" font-size="7" fill="#fff">Pip</text>
+          <text x="15" y="74" text-anchor="middle" class="label">Медик</text>
+        </g>
+
+        <!-- Epitaph -->
+        <rect x="20" y="210" width="200" height="56" rx="6" fill="rgba(255,255,255,0.05)" stroke="#666" stroke-dasharray="2,2"/>
+        <text x="120" y="226" text-anchor="middle" class="wf-text" font-size="9" fill="#fff" font-style="italic">«Тут лежить Jools Cameron.</text>
+        <text x="120" y="240" text-anchor="middle" class="wf-text" font-size="9" fill="#fff" font-style="italic">Влучив у 47 ворогів. Помер,</text>
+        <text x="120" y="254" text-anchor="middle" class="wf-text" font-size="9" fill="#fff" font-style="italic">бо командир забув про граната.»</text>
+
+        <!-- Stats brief -->
+        <rect x="20" y="280" width="200" height="50" rx="6" fill="rgba(255,255,255,0.08)"/>
+        <text x="30" y="298" class="wf-text" font-size="9" fill="#aaa">Прогрес</text>
+        <text x="210" y="298" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#fff">5/8 цілей</text>
+        <text x="30" y="316" class="wf-text" font-size="9" fill="#aaa">Часткова нагорода</text>
+        <text x="210" y="316" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#D9A441">+ 24 Coins</text>
+
+        <!-- Revive button (rewarded ad) -->
+        <rect x="20" y="346" width="200" height="44" rx="6" fill="#3F7D3F"/>
+        <text x="120" y="368" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">▶ ОЖИВИТИ ЗАГІН</text>
+        <text x="120" y="384" text-anchor="middle" class="wf-text" font-size="9" fill="#fff" opacity="0.85">за рекламу (1/1 на забіг)</text>
+
+        <!-- Other CTAs -->
+        <rect x="20" y="400" width="92" height="32" rx="6" fill="rgba(255,255,255,0.1)" stroke="#fff"/>
+        <text x="66" y="420" text-anchor="middle" class="wf-text" font-size="10" fill="#fff">Перепройти</text>
+
+        <rect x="120" y="400" width="100" height="32" rx="6" class="wf-fill-accent"/>
+        <text x="170" y="420" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">У БАЗУ →</text>
+
+        <text x="120" y="452" text-anchor="middle" class="wf-text" font-size="8" fill="#666" font-style="italic">Усі 4 додані до Hill of Fame</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Гравець програв. Треба: пом'якшити удар емоційно, дати останній шанс (revive за рекламу), і запропонувати конструктивний наступний крок.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>4 надгробки</b> з іменами і класами — візуальна вага втрати.</li>
+        <li><b>Епітафія</b> для одного з загиблих — генерується процедурно зі статистикою. Це — emotional hook.</li>
+        <li><b>Часткова нагорода</b> — гравець отримує щось, не йде з порожніми руками.</li>
+        <li><b>Revive за рекламу</b> — велика зелена кнопка, єдиний шанс. Ліміт 1 на забіг (зберігаємо permadeath).</li>
+        <li><b>Перепройти</b> — починає той самий рівень спочатку (зі свіжим загоном).</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Звук: повільна струнна версія головної теми (емоція, не покарання).</li>
+        <li>Епітафія варіюється з 50+ шаблонів — повертає гравця до Hill of Fame.</li>
+        <li>Якщо це другий поспіль defeat — м'яке нагадування «Може, прокачати Барак?»</li>
+        <li>Reanimation NEVER на платній валюті — тільки реклама. Принцип «no pay-to-win».</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 11. HILL OF FAME -->
+<section class="screen-card" id="s11">
+  <div class="screen-meta">
+    <span class="num">11</span>
+    <h2>Hill of Fame</h2>
+    <span class="screen-tag">Meta-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <!-- Sky -->
+        <rect width="240" height="200" fill="#506580"/>
+        <!-- Stars -->
+        <text x="50" y="50" class="wf-text" font-size="6" fill="#fff">✦</text>
+        <text x="100" y="40" class="wf-text" font-size="6" fill="#fff">✦</text>
+        <text x="180" y="60" class="wf-text" font-size="6" fill="#fff">✦</text>
+        <text x="200" y="100" class="wf-text" font-size="6" fill="#fff">✦</text>
+
+        <!-- Hill -->
+        <path d="M 0 480 Q 120 180 240 480 Z" fill="#3a4f3a"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="rgba(0,0,0,0.5)"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">HILL OF FAME</text>
+        <text x="120" y="36" text-anchor="middle" class="wf-text" font-size="8" fill="#aaa">217 загиблих ・ +2.1% damage bonus</text>
+
+        <!-- Tombstones layered on hill -->
+        <g>
+          <!-- Row 1 (back) -->
+          <rect x="60" y="220" width="6" height="14" fill="#888"/>
+          <rect x="80" y="222" width="5" height="12" fill="#888"/>
+          <rect x="100" y="218" width="6" height="14" fill="#888"/>
+          <rect x="120" y="220" width="6" height="14" fill="#888"/>
+          <rect x="140" y="222" width="5" height="12" fill="#888"/>
+          <rect x="160" y="218" width="6" height="14" fill="#888"/>
+          <rect x="180" y="220" width="6" height="14" fill="#888"/>
+
+          <!-- Row 2 -->
+          <rect x="40" y="260" width="8" height="18" fill="#999"/>
+          <rect x="65" y="258" width="8" height="20" fill="#999"/>
+          <rect x="90" y="262" width="8" height="16" fill="#999"/>
+          <rect x="115" y="258" width="8" height="20" fill="#999"/>
+          <rect x="140" y="260" width="8" height="18" fill="#999"/>
+          <rect x="165" y="262" width="8" height="16" fill="#999"/>
+          <rect x="190" y="258" width="8" height="20" fill="#999"/>
+
+          <!-- Row 3 (front, larger) -->
+          <g transform="translate(30,310)">
+            <rect width="20" height="32" fill="#aaa"/>
+            <rect x="-3" y="-3" width="26" height="6" fill="#aaa"/>
+            <text x="10" y="14" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#222">RIP</text>
+            <text x="10" y="24" text-anchor="middle" class="wf-text" font-size="7" fill="#222">Stoo</text>
+          </g>
+          <g transform="translate(70,308)">
+            <rect width="20" height="34" fill="#aaa"/>
+            <rect x="-3" y="-3" width="26" height="6" fill="#aaa"/>
+            <text x="10" y="14" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#222">RIP</text>
+            <text x="10" y="24" text-anchor="middle" class="wf-text" font-size="7" fill="#222">Jools</text>
+          </g>
+          <g transform="translate(110,310)">
+            <rect width="20" height="32" fill="#aaa"/>
+            <rect x="-3" y="-3" width="26" height="6" fill="#aaa"/>
+            <text x="10" y="14" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#222">RIP</text>
+            <text x="10" y="24" text-anchor="middle" class="wf-text" font-size="7" fill="#222">Rits</text>
+          </g>
+          <!-- Selected (gold border) -->
+          <g transform="translate(150,308)">
+            <rect width="20" height="34" fill="#aaa" stroke="#FFD700" stroke-width="2"/>
+            <rect x="-3" y="-3" width="26" height="6" fill="#aaa"/>
+            <text x="10" y="14" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#222">RIP</text>
+            <text x="10" y="24" text-anchor="middle" class="wf-text" font-size="7" fill="#222">Pip</text>
+          </g>
+          <g transform="translate(190,310)">
+            <rect width="20" height="32" fill="#aaa"/>
+            <rect x="-3" y="-3" width="26" height="6" fill="#aaa"/>
+            <text x="10" y="14" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#222">RIP</text>
+            <text x="10" y="24" text-anchor="middle" class="wf-text" font-size="7" fill="#222">Bo</text>
+          </g>
+        </g>
+
+        <!-- Tooltip / detail card -->
+        <rect x="20" y="360" width="200" height="100" rx="8" fill="#fff" stroke="#2B2B2B"/>
+        <text x="30" y="378" class="wf-text wf-bold" font-size="11">Pip «Медик»</text>
+        <text x="30" y="392" class="wf-text" font-size="9" fill="#666">Прожив 7 місій. Загинув 23 кв 2026.</text>
+        <text x="30" y="412" class="wf-text" font-size="9" fill="#1F2933" font-style="italic">«Тут лежить Pip. Хілив усіх,</text>
+        <text x="30" y="424" class="wf-text" font-size="9" fill="#1F2933" font-style="italic">крім себе. Класика медиків.»</text>
+        <text x="30" y="448" class="wf-text" font-size="8" fill="#B85C38">12 виліковано ・ 31 вбивство</text>
+        <rect x="170" y="438" width="44" height="16" rx="8" fill="#fff" stroke="#B85C38"/>
+        <text x="192" y="450" text-anchor="middle" class="wf-text wf-bold" font-size="8" fill="#B85C38">Поділитись</text>
+
+        <text x="120" y="476" text-anchor="middle" class="annot">проведи пальцем по пагорбу</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Емоційний капот гри. Гравець гортає свій меморіал, читає епітафії, відчуває власну історію в продукті.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>3D-пагорб</b> вночі (нічна сцена — атмосферно).</li>
+        <li><b>Надгробки</b> у трьох рядах. Дальні — менші. Front-row — клікабельні.</li>
+        <li><b>Detail card</b> з епітафією, статистикою, кнопкою «Поділитися» (генерація картинки в інстаграм).</li>
+        <li><b>Pasive bonus</b> у заголовку: «+2.1% damage» — нагорода за гру (1% за 100 загиблих).</li>
+        <li><b>Свайп</b> рухає камеру по пагорбу — нескінченний список.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Музика: тиха струнна версія головної теми. Без літ-таймерів і алертів.</li>
+        <li>Один RIP виділяється золотом — останній загиблий.</li>
+        <li>Search/filter: за біомом, за класом, за датою (пошук «свого» найдорожчого).</li>
+        <li>«Поділитися» генерує брендовану картинку з епітафією для соцмереж — viral hook.</li>
+        <li>Ніяких CTA на покупки. Ця локація — святиня.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 12. BUILDING UPGRADE -->
+<section class="screen-card" id="s12">
+  <div class="screen-meta">
+    <span class="num">12</span>
+    <h2>Boot Camp: Building Upgrade</h2>
+    <span class="screen-tag">Meta-game</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#a3b39a"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="#1F2933"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">БАРАК</text>
+
+        <!-- Building 3D -->
+        <rect x="60" y="60" width="120" height="100" class="wf-fill-soft"/>
+        <polygon points="60,60 120,30 180,60" class="wf-fill-dark"/>
+        <rect x="100" y="100" width="40" height="60" fill="#444"/>
+        <rect x="70" y="80" width="20" height="20" fill="#3B6BB5" opacity="0.4"/>
+        <rect x="150" y="80" width="20" height="20" fill="#3B6BB5" opacity="0.4"/>
+
+        <!-- Level info -->
+        <rect x="20" y="180" width="200" height="36" rx="6" fill="#fff" stroke="#2B2B2B"/>
+        <text x="30" y="200" class="wf-text wf-bold" font-size="14">Барак ・ Lv.2</text>
+        <text x="210" y="200" text-anchor="end" class="wf-text" font-size="10" fill="#666">→ Lv.3</text>
+        <text x="30" y="212" class="wf-text" font-size="9" fill="#666">Стартовий загін: 4 → 5 солдатів</text>
+
+        <!-- Effects table -->
+        <rect x="20" y="226" width="200" height="120" rx="6" fill="rgba(255,255,255,0.5)" stroke="#999"/>
+        <text x="30" y="246" class="wf-text wf-bold" font-size="11" fill="#B85C38">Зараз (Lv.2)</text>
+        <text x="30" y="262" class="wf-text" font-size="10">▪ Стартовий загін: 4 солдати</text>
+        <text x="30" y="278" class="wf-text" font-size="10">▪ HP кожного: 100</text>
+
+        <line x1="20" y1="290" x2="220" y2="290" stroke="#999" stroke-dasharray="2,2"/>
+
+        <text x="30" y="306" class="wf-text wf-bold" font-size="11" fill="#3F7D3F">Після (Lv.3)</text>
+        <text x="30" y="322" class="wf-text" font-size="10">▪ Стартовий загін: <tspan fill="#3F7D3F" font-weight="700">5 солдатів</tspan></text>
+        <text x="30" y="338" class="wf-text" font-size="10">▪ HP кожного: <tspan fill="#3F7D3F" font-weight="700">120</tspan></text>
+
+        <!-- Cost -->
+        <rect x="20" y="360" width="200" height="40" rx="6" fill="#fff" stroke="#2B2B2B"/>
+        <text x="30" y="378" class="wf-text wf-bold" font-size="11">Вартість</text>
+        <circle cx="100" cy="384" r="6" fill="#D9A441"/>
+        <text x="112" y="388" class="wf-text wf-bold" font-size="11" fill="#1F2933">1,200</text>
+        <text x="160" y="388" class="wf-text" font-size="9" fill="#666">⏱ 2 год</text>
+        <text x="30" y="394" class="wf-text" font-size="8" fill="#888">У вас: 2,461</text>
+
+        <!-- CTA -->
+        <rect x="20" y="416" width="92" height="40" rx="6" fill="rgba(255,255,255,0.5)" stroke="#999"/>
+        <text x="66" y="438" text-anchor="middle" class="wf-text" font-size="10">⏱ Прискорити</text>
+        <text x="66" y="450" text-anchor="middle" class="label" fill="#B85C38">за рекламу</text>
+
+        <rect x="120" y="416" width="100" height="40" rx="6" class="wf-fill-accent"/>
+        <text x="170" y="442" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">ПОКРАЩИТИ</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Гравець вирішує, прокачати будівлю чи ні. Бачить порівняння «зараз → після».</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>3D-модель будівлі</b> зверху, з можливістю обертати/наближати.</li>
+        <li><b>Level info bar</b> — поточний рівень → майбутній.</li>
+        <li><b>Effects comparison</b> — чітке «до/після» зеленим.</li>
+        <li><b>Cost</b> — Coins + час побудови (можна прискорити рекламою).</li>
+        <li><b>«У вас: 2,461»</b> — поточний баланс, прозоро.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Якщо Coins не вистачає — кнопка червоніє, текст «Не вистачає 320». Тап → перехід у Shop.</li>
+        <li>Час будівництва: тільки на високих рівнях. Lv.1-3 безкоштовно за часом.</li>
+        <li>Мікроанімація: після PURCHASE — будівля «розширяється» на півсекунди.</li>
+        <li>Push-нотифікація коли будівля готова.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 13. BATTLE PASS -->
+<section class="screen-card" id="s13">
+  <div class="screen-meta">
+    <span class="num">13</span>
+    <h2>Battle Pass</h2>
+    <span class="screen-tag">Monetization</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#1F2933"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="rgba(0,0,0,0.5)"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">BATTLE PASS</text>
+        <text x="220" y="25" text-anchor="end" class="wf-text" font-size="9" fill="#aaa">⏱ 23 дні</text>
+
+        <!-- Theme banner -->
+        <rect x="0" y="40" width="240" height="80" fill="#7a3a3a"/>
+        <text x="120" y="62" text-anchor="middle" class="wf-text wf-bold" font-size="14" fill="#FFD700">СЕЗОН 1</text>
+        <text x="120" y="80" text-anchor="middle" class="wf-text wf-bold" font-size="18" fill="#fff">«ОПЕРАЦІЯ ПУСТЕЛЯ»</text>
+        <text x="120" y="98" text-anchor="middle" class="wf-text" font-size="9" fill="#fff" font-style="italic">Скіни піщаних рейнджерів, верблюди, шеврони</text>
+
+        <!-- Progress -->
+        <rect x="20" y="134" width="200" height="20" rx="10" fill="#333"/>
+        <rect x="20" y="134" width="120" height="20" rx="10" fill="#B85C38"/>
+        <text x="120" y="148" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">12 / 50</text>
+
+        <!-- Tracks toggle -->
+        <rect x="20" y="166" width="200" height="24" rx="12" fill="rgba(255,255,255,0.1)"/>
+        <rect x="20" y="166" width="100" height="24" rx="12" fill="#fff"/>
+        <text x="70" y="182" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#1F2933">FREE</text>
+        <text x="170" y="182" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#aaa">PREMIUM 🔒</text>
+
+        <!-- Reward tiers -->
+        <g>
+          <!-- Tier 11 (claimed) -->
+          <rect x="20" y="206" width="40" height="60" rx="6" fill="rgba(63,125,63,0.3)" stroke="#3F7D3F"/>
+          <text x="40" y="228" text-anchor="middle" class="wf-text" font-size="14" fill="#3F7D3F">✓</text>
+          <text x="40" y="244" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">+50</text>
+          <text x="40" y="256" text-anchor="middle" class="label">Coins</text>
+          <text x="40" y="278" text-anchor="middle" class="label">tier 11</text>
+
+          <!-- Tier 12 (current) -->
+          <rect x="64" y="200" width="46" height="72" rx="6" fill="#B85C38" stroke="#FFD700" stroke-width="2"/>
+          <circle cx="87" cy="220" r="10" fill="#fff"/>
+          <text x="87" y="224" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#B85C38">⛑</text>
+          <text x="87" y="246" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">Каска</text>
+          <text x="87" y="258" text-anchor="middle" class="wf-text" font-size="8" fill="#fff">«Пустеля»</text>
+          <text x="87" y="284" text-anchor="middle" class="label" fill="#FFD700">tier 12 ★</text>
+
+          <!-- Tier 13 -->
+          <rect x="114" y="206" width="40" height="60" rx="6" fill="rgba(255,255,255,0.08)" stroke="#666"/>
+          <text x="134" y="240" text-anchor="middle" class="wf-text" font-size="14" fill="#aaa">XP</text>
+          <text x="134" y="256" text-anchor="middle" class="wf-text" font-size="8" fill="#aaa">+200</text>
+          <text x="134" y="278" text-anchor="middle" class="label">tier 13</text>
+
+          <!-- Tier 14 (epic) -->
+          <rect x="158" y="206" width="40" height="60" rx="6" fill="rgba(184,92,56,0.2)" stroke="#B85C38"/>
+          <text x="178" y="244" text-anchor="middle" class="wf-text" font-size="20" fill="#B85C38">🎖</text>
+          <text x="178" y="260" text-anchor="middle" class="label" fill="#B85C38">EPIC</text>
+          <text x="178" y="278" text-anchor="middle" class="label">tier 14</text>
+
+          <!-- Tier 15 (locked premium) -->
+          <rect x="202" y="206" width="36" height="60" rx="6" fill="rgba(0,0,0,0.4)" stroke="#666" stroke-dasharray="2,2"/>
+          <text x="220" y="240" text-anchor="middle" class="wf-text" font-size="14" fill="#666">🔒</text>
+          <text x="220" y="256" text-anchor="middle" class="label" fill="#666">PREM</text>
+          <text x="220" y="278" text-anchor="middle" class="label">tier 15</text>
+        </g>
+
+        <!-- Premium upsell -->
+        <rect x="20" y="296" width="200" height="80" rx="8" fill="rgba(255,215,0,0.1)" stroke="#FFD700" stroke-width="2"/>
+        <text x="30" y="316" class="wf-text wf-bold" font-size="12" fill="#FFD700">PREMIUM PASS</text>
+        <text x="30" y="332" class="wf-text" font-size="9" fill="#fff">▪ +50 ексклюзивних винагород</text>
+        <text x="30" y="346" class="wf-text" font-size="9" fill="#fff">▪ Унікальний скін «Капітан Пустеля»</text>
+        <text x="30" y="360" class="wf-text" font-size="9" fill="#fff">▪ Ретроактивне розблокування</text>
+        <rect x="120" y="320" width="86" height="28" rx="14" fill="#FFD700"/>
+        <text x="163" y="338" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#1F2933">$9.99</text>
+
+        <!-- Daily quests -->
+        <text x="20" y="402" class="wf-text wf-bold" font-size="11" fill="#fff">Денні квести (BP +25 кожен)</text>
+        <rect x="20" y="410" width="200" height="20" rx="4" fill="rgba(255,255,255,0.05)"/>
+        <text x="30" y="424" class="wf-text" font-size="9" fill="#3F7D3F">✓ Пройти 1 місію</text>
+        <text x="210" y="424" text-anchor="end" class="wf-text" font-size="9" fill="#3F7D3F">+25 BP</text>
+
+        <rect x="20" y="434" width="200" height="20" rx="4" fill="rgba(255,255,255,0.05)"/>
+        <text x="30" y="448" class="wf-text" font-size="9" fill="#fff">▪ Зробити 50 вбивств гранатами</text>
+        <text x="210" y="448" text-anchor="end" class="wf-text" font-size="9" fill="#aaa">12/50</text>
+
+        <rect x="20" y="458" width="200" height="20" rx="4" fill="rgba(255,255,255,0.05)"/>
+        <text x="30" y="472" class="wf-text" font-size="9" fill="#fff">▪ Виграти без втрат</text>
+        <text x="210" y="472" text-anchor="end" class="wf-text" font-size="9" fill="#aaa">0/1</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Battle Pass — головне джерело довгострокового LTV. Гравець бачить, що отримує безкоштовно і чому варто доплатити $9.99.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Theme banner</b> — кожен сезон має свою тему («Операція Пустеля», «Зомбі-Апокаліпсис», «Космічна Війна»).</li>
+        <li><b>Progress bar</b> + countdown timer.</li>
+        <li><b>Free / Premium toggle</b> — гравець бачить, що пропускає на Premium-треку.</li>
+        <li><b>Reward tiers</b> — горизонтальний скрол. Поточний tier виділений золотом.</li>
+        <li><b>Premium upsell</b> з чіткою цінністю (50 додаткових нагород + ексклюзивний скін + ретроактивне розблокування).</li>
+        <li><b>Daily quests</b> — швидкий шлях прокачати tiers.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>«Ретроактивне розблокування» — критична фіча: купив на tier 30 → отримуєш ВСЕ з 1-30 одразу.</li>
+        <li>На D7 retention bump — пропонуємо «Premium Pass −20%» для F2P-гравців.</li>
+        <li>Скіни — тільки косметика. Жодного gameplay-impact.</li>
+        <li>Поточний tier пульсує золотом — фокус уваги гравця.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 14. SHOP -->
+<section class="screen-card" id="s14">
+  <div class="screen-meta">
+    <span class="num">14</span>
+    <h2>Shop</h2>
+    <span class="screen-tag">Monetization</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#f4efe6"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="#1F2933"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">МАГАЗИН</text>
+
+        <!-- Currency bar -->
+        <rect x="0" y="40" width="240" height="32" fill="#fff"/>
+        <circle cx="22" cy="56" r="6" fill="#D9A441"/>
+        <text x="34" y="60" class="wf-text wf-bold" font-size="10">2,461</text>
+        <text x="80" y="60" class="wf-text wf-bold" font-size="10" fill="#666">💀 12</text>
+        <circle cx="146" cy="56" r="6" fill="#B85C38"/>
+        <text x="158" y="60" class="wf-text wf-bold" font-size="10">240</text>
+        <text x="222" y="60" text-anchor="end" class="wf-text wf-bold" font-size="14" fill="#B85C38">+</text>
+
+        <!-- Tabs -->
+        <rect x="0" y="74" width="240" height="32" fill="#e0d8c5"/>
+        <rect x="0" y="74" width="80" height="32" fill="#f4efe6"/>
+        <text x="40" y="94" text-anchor="middle" class="wf-text wf-bold" font-size="10">Спецпропозиції</text>
+        <text x="120" y="94" text-anchor="middle" class="wf-text" font-size="10" fill="#666">Скіни</text>
+        <text x="200" y="94" text-anchor="middle" class="wf-text" font-size="10" fill="#666">Валюта</text>
+
+        <!-- Featured offer (limited time) -->
+        <rect x="14" y="118" width="212" height="100" rx="8" fill="#1F2933"/>
+        <rect x="14" y="118" width="212" height="20" rx="8" fill="#C84238"/>
+        <text x="120" y="132" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">LIMITED ・ 04:23:11</text>
+
+        <text x="22" y="156" class="wf-text wf-bold" font-size="13" fill="#FFD700">СТАРТОВИЙ ПАКЕТ</text>
+        <text x="22" y="172" class="wf-text" font-size="9" fill="#fff">▪ 1,500 Coins (×2 цінність)</text>
+        <text x="22" y="186" class="wf-text" font-size="9" fill="#fff">▪ Скін «Зелений Берет» (ексклюзивний)</text>
+        <text x="22" y="200" class="wf-text" font-size="9" fill="#fff">▪ +1 Pass tier</text>
+
+        <rect x="148" y="180" width="70" height="28" rx="14" fill="#3F7D3F"/>
+        <text x="183" y="198" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">$2.99</text>
+        <text x="183" y="216" text-anchor="middle" class="label" fill="#fff" text-decoration="line-through">$5.99</text>
+
+        <!-- Skin items grid -->
+        <text x="14" y="240" class="wf-text wf-bold" font-size="11">Популярні скіни</text>
+
+        <g>
+          <!-- Skin 1 -->
+          <rect x="14" y="248" width="68" height="92" rx="6" fill="#fff" stroke="#999"/>
+          <rect x="22" y="256" width="52" height="52" fill="#3F7D3F"/>
+          <text x="48" y="288" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">SGT</text>
+          <text x="48" y="320" text-anchor="middle" class="wf-text wf-bold" font-size="9">Спецназ</text>
+          <text x="48" y="332" text-anchor="middle" class="wf-text" font-size="9" fill="#B85C38">240 💎</text>
+
+          <!-- Skin 2 -->
+          <rect x="86" y="248" width="68" height="92" rx="6" fill="#fff" stroke="#999"/>
+          <rect x="94" y="256" width="52" height="52" fill="#7a3a3a"/>
+          <text x="120" y="288" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">CMD</text>
+          <text x="120" y="320" text-anchor="middle" class="wf-text wf-bold" font-size="9">Командир</text>
+          <text x="120" y="332" text-anchor="middle" class="wf-text" font-size="9" fill="#B85C38">490 💎</text>
+
+          <!-- Skin 3 (sale) -->
+          <rect x="158" y="248" width="68" height="92" rx="6" fill="#fff" stroke="#B85C38" stroke-width="2"/>
+          <rect x="166" y="256" width="52" height="52" fill="#3B6BB5"/>
+          <text x="192" y="288" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">MED</text>
+          <text x="192" y="320" text-anchor="middle" class="wf-text wf-bold" font-size="9">Польовий</text>
+          <text x="192" y="332" text-anchor="middle" class="wf-text" font-size="9" fill="#3F7D3F">-30% ・ 168 💎</text>
+        </g>
+
+        <!-- Memorial cosmetics -->
+        <text x="14" y="362" class="wf-text wf-bold" font-size="11">Меморіальні предмети</text>
+        <rect x="14" y="370" width="212" height="40" rx="6" fill="#fff" stroke="#999"/>
+        <rect x="20" y="376" width="28" height="28" fill="#666"/>
+        <text x="34" y="394" text-anchor="middle" class="wf-text wf-bold" font-size="6" fill="#fff">RIP</text>
+        <text x="60" y="388" class="wf-text wf-bold" font-size="10">Мармурова Стелла</text>
+        <text x="60" y="400" class="wf-text" font-size="8" fill="#666">Унікальний дизайн надгробка</text>
+        <text x="210" y="392" text-anchor="end" class="wf-text wf-bold" font-size="9" fill="#B85C38">120 💎</text>
+
+        <!-- Currency packs -->
+        <text x="14" y="430" class="wf-text wf-bold" font-size="11">Пакети Coins</text>
+        <rect x="14" y="438" width="68" height="32" rx="6" fill="#fff" stroke="#999"/>
+        <text x="48" y="452" text-anchor="middle" class="wf-text wf-bold" font-size="9">500</text>
+        <text x="48" y="464" text-anchor="middle" class="wf-text" font-size="9" fill="#B85C38">$0.99</text>
+
+        <rect x="86" y="438" width="68" height="32" rx="6" fill="#fff" stroke="#B85C38"/>
+        <text x="120" y="452" text-anchor="middle" class="wf-text wf-bold" font-size="9">3,000</text>
+        <text x="120" y="464" text-anchor="middle" class="wf-text" font-size="9" fill="#B85C38">$4.99</text>
+
+        <rect x="158" y="438" width="68" height="32" rx="6" fill="#fff" stroke="#999"/>
+        <text x="192" y="452" text-anchor="middle" class="wf-text wf-bold" font-size="9">10,000</text>
+        <text x="192" y="464" text-anchor="middle" class="wf-text" font-size="9" fill="#B85C38">$14.99</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Магазин у hybrid-casual моделі: лімітовані пропозиції, скіни, валютні пакети. Жодного pay-to-win.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Currency bar</b> — постійно видно баланс і кнопку «+».</li>
+        <li><b>Tabs</b>: Спецпропозиції / Скіни / Валюта.</li>
+        <li><b>Limited offer</b> з countdown — головний driver конверсії.</li>
+        <li><b>Skins grid</b> з рідкісностями і знижками.</li>
+        <li><b>Меморіальні предмети</b> — кастомізація надгробків (унікальна для нашої гри).</li>
+        <li><b>Currency packs</b> з «best value» бейджем на середньому пакеті.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Стартовий пакет — раз за акаунт, найвища конверсія.</li>
+        <li>Live-ops: пропозиції змінюються щотижня залежно від метрик гравця (без pay-walls).</li>
+        <li>Чесні ціни: усе в локальній валюті (через Apple/Google Play).</li>
+        <li>Жодних «бойових» предметів — тільки косметика і валюта.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 15. DAILY MISSIONS -->
+<section class="screen-card" id="s15">
+  <div class="screen-meta">
+    <span class="num">15</span>
+    <h2>Daily / Weekly Missions</h2>
+    <span class="screen-tag">LiveOps</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#f4efe6"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="#1F2933"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">ДЕННІ МІСІЇ</text>
+        <text x="220" y="25" text-anchor="end" class="wf-text" font-size="9" fill="#aaa">⏱ 14:23:09</text>
+
+        <!-- Tabs -->
+        <rect x="0" y="40" width="240" height="32" fill="#e0d8c5"/>
+        <rect x="0" y="40" width="120" height="32" fill="#f4efe6"/>
+        <text x="60" y="60" text-anchor="middle" class="wf-text wf-bold" font-size="10">Денні (3)</text>
+        <text x="180" y="60" text-anchor="middle" class="wf-text" font-size="10" fill="#666">Тижневі</text>
+
+        <!-- Featured daily (with modifier) -->
+        <rect x="14" y="84" width="212" height="120" rx="8" fill="#1F2933"/>
+        <rect x="14" y="84" width="212" height="22" fill="#B85C38"/>
+        <text x="22" y="98" class="wf-text wf-bold" font-size="9" fill="#fff">⚡ ДЕННА «БЕЗ ПАТРОНІВ»</text>
+        <text x="218" y="98" text-anchor="end" class="wf-text" font-size="9" fill="#fff">МОДИФІКАТОР</text>
+
+        <text x="22" y="124" class="wf-text wf-bold" font-size="13" fill="#FFD700">Лише гранати — нескінченно</text>
+        <text x="22" y="140" class="wf-text" font-size="9" fill="#fff">Зброя вимкнена. Тільки гранати.</text>
+        <text x="22" y="154" class="wf-text" font-size="9" fill="#fff" font-style="italic">«Цивілізована форма терору.»</text>
+
+        <text x="22" y="178" class="wf-text" font-size="9" fill="#aaa">Нагорода:</text>
+        <circle cx="76" cy="174" r="5" fill="#D9A441"/>
+        <text x="86" y="178" class="wf-text wf-bold" font-size="10" fill="#fff">300</text>
+        <text x="116" y="178" class="wf-text" font-size="10" fill="#fff">+ 50 BP</text>
+        <text x="166" y="178" class="wf-text" font-size="9" fill="#FFD700">+ Skin chance</text>
+
+        <rect x="148" y="186" width="68" height="14" rx="7" class="wf-fill-accent"/>
+        <text x="182" y="196" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">У БІЙ →</text>
+
+        <!-- Daily list -->
+        <g>
+          <rect x="14" y="218" width="212" height="56" rx="6" fill="#fff" stroke="#999"/>
+          <text x="22" y="234" class="wf-text wf-bold" font-size="11">Місія 1: Пройти 3 рівні</text>
+          <rect x="22" y="240" width="160" height="6" rx="3" fill="#eee"/>
+          <rect x="22" y="240" width="106" height="6" rx="3" fill="#3F7D3F"/>
+          <text x="22" y="262" class="wf-text" font-size="9" fill="#666">2/3 ・ нагорода: 80 Coins + 25 BP</text>
+          <rect x="190" y="240" width="28" height="22" rx="4" fill="#3F7D3F"/>
+          <text x="204" y="256" text-anchor="middle" class="wf-text wf-bold" font-size="8" fill="#fff">CLAIM</text>
+        </g>
+
+        <g>
+          <rect x="14" y="284" width="212" height="56" rx="6" fill="#fff" stroke="#999"/>
+          <text x="22" y="300" class="wf-text wf-bold" font-size="11">Місія 2: 50 вбивств гранатою</text>
+          <rect x="22" y="306" width="160" height="6" rx="3" fill="#eee"/>
+          <rect x="22" y="306" width="36" height="6" rx="3" fill="#B85C38"/>
+          <text x="22" y="328" class="wf-text" font-size="9" fill="#666">12/50 ・ нагорода: 120 Coins + 25 BP</text>
+        </g>
+
+        <g>
+          <rect x="14" y="350" width="212" height="56" rx="6" fill="#fff" stroke="#999"/>
+          <text x="22" y="366" class="wf-text wf-bold" font-size="11">Місія 3: Виграти без втрат</text>
+          <rect x="22" y="372" width="160" height="6" rx="3" fill="#eee"/>
+          <text x="22" y="394" class="wf-text" font-size="9" fill="#666">0/1 ・ нагорода: 200 Coins + 25 BP + Pip skin</text>
+        </g>
+
+        <!-- Refresh -->
+        <rect x="14" y="420" width="212" height="32" rx="6" fill="#fff" stroke="#999"/>
+        <text x="120" y="442" text-anchor="middle" class="wf-text" font-size="10">▶ Поміняти 1 квест за рекламу</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Утримання гравця через щоденну петлю. Featured daily з модифікатором — драйвить хайп, дейлі-список — стабільну активність.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Featured daily</b> — місія з унікальним модифікатором (наприклад «Без патронів», «1 солдат», «Подвійні гранати»).</li>
+        <li><b>3 щоденних квести</b> з прогрес-барами і градацією складності.</li>
+        <li><b>Tabs Denlі/Tiжневі</b>.</li>
+        <li><b>Reroll one</b> — можливість поміняти один незручний квест за рекламу.</li>
+        <li><b>CLAIM</b> кнопка зеленіє коли квест виконано.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Daily-ы скидаються о 04:00 за локальним часом гравця.</li>
+        <li>Переключення дейлі/тижневих — глобальний прогрес лише в дейлі.</li>
+        <li>Featured модифікатори ротуються — є ~20 варіантів.</li>
+        <li>Push-нотифікація о 19:00 локального часу: «Залишилось 2 квести!»</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 16. CO-OP LOBBY -->
+<section class="screen-card" id="s16">
+  <div class="screen-meta">
+    <span class="num">16</span>
+    <h2>Co-op Lobby</h2>
+    <span class="screen-tag">Social</span>
+  </div>
+  <div class="screen-body">
+    <div class="phone">
+      <svg viewBox="0 0 240 480">
+        <rect width="240" height="480" fill="#1F2933"/>
+
+        <!-- Top bar -->
+        <rect x="0" y="0" width="240" height="40" fill="rgba(0,0,0,0.5)"/>
+        <text x="20" y="25" class="wf-text wf-bold" font-size="14" fill="#fff">←</text>
+        <text x="120" y="25" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#fff">КООП ЛОБІ</text>
+
+        <!-- Mode toggle -->
+        <rect x="20" y="56" width="200" height="28" rx="14" fill="rgba(255,255,255,0.1)"/>
+        <rect x="20" y="56" width="100" height="28" rx="14" fill="#B85C38"/>
+        <text x="70" y="74" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#fff">З ДРУГОМ</text>
+        <text x="170" y="74" text-anchor="middle" class="wf-text" font-size="10" fill="#aaa">МАТЧМЕЙК</text>
+
+        <!-- Player slots -->
+        <g>
+          <!-- Player A (you) -->
+          <rect x="14" y="100" width="100" height="120" rx="8" fill="rgba(255,255,255,0.08)" stroke="#3F7D3F" stroke-width="2"/>
+          <text x="64" y="120" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#3F7D3F">ВИ</text>
+          <circle cx="64" cy="146" r="20" fill="#3F7D3F"/>
+          <text x="64" y="151" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">5★</text>
+          <text x="64" y="184" text-anchor="middle" class="wf-text wf-bold" font-size="11" fill="#fff">@Andrii</text>
+          <rect x="22" y="194" width="84" height="18" rx="9" fill="#3F7D3F"/>
+          <text x="64" y="206" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#fff">ПІХОТА</text>
+
+          <!-- Player B (friend / waiting) -->
+          <rect x="124" y="100" width="100" height="120" rx="8" fill="rgba(255,255,255,0.04)" stroke="#666" stroke-dasharray="4,2"/>
+          <circle cx="174" cy="146" r="20" fill="#444" stroke="#888"/>
+          <text x="174" y="151" text-anchor="middle" class="wf-text" font-size="22" fill="#666">?</text>
+          <text x="174" y="184" text-anchor="middle" class="wf-text wf-bold" font-size="10" fill="#999">Очікування...</text>
+          <rect x="132" y="194" width="84" height="18" rx="9" fill="rgba(184,92,56,0.3)" stroke="#B85C38"/>
+          <text x="174" y="206" text-anchor="middle" class="wf-text wf-bold" font-size="9" fill="#B85C38">ПІДТРИМКА</text>
+        </g>
+
+        <!-- Invite code -->
+        <rect x="14" y="234" width="212" height="60" rx="8" fill="#fff"/>
+        <text x="120" y="252" text-anchor="middle" class="wf-text" font-size="9" fill="#666">КОД ЗАПРОШЕННЯ</text>
+        <text x="120" y="276" text-anchor="middle" class="wf-text wf-bold" font-size="20" fill="#B85C38">F0DD3R</text>
+        <text x="120" y="290" text-anchor="middle" class="label" fill="#666">тап щоб скопіювати</text>
+
+        <!-- Invite buttons -->
+        <rect x="14" y="304" width="100" height="32" rx="6" fill="rgba(255,255,255,0.1)" stroke="#fff"/>
+        <text x="64" y="324" text-anchor="middle" class="wf-text" font-size="10" fill="#fff">↗ Надіслати</text>
+
+        <rect x="124" y="304" width="100" height="32" rx="6" fill="rgba(255,255,255,0.1)" stroke="#fff"/>
+        <text x="174" y="324" text-anchor="middle" class="wf-text" font-size="10" fill="#fff">★ Друзі</text>
+
+        <!-- Shared Hill of Fame -->
+        <rect x="14" y="350" width="212" height="60" rx="8" fill="rgba(255,215,0,0.1)" stroke="#FFD700"/>
+        <text x="22" y="368" class="wf-text wf-bold" font-size="11" fill="#FFD700">⛏ СПІЛЬНИЙ HILL OF FAME</text>
+        <text x="22" y="384" class="wf-text" font-size="9" fill="#fff">42 спільні втрати з @KateB</text>
+        <text x="22" y="400" class="wf-text" font-size="9" fill="#fff">+1.5% damage коли граєте разом</text>
+
+        <!-- Start button (disabled until both ready) -->
+        <rect x="40" y="424" width="160" height="40" rx="6" fill="#444" stroke="#666"/>
+        <text x="120" y="448" text-anchor="middle" class="wf-text wf-bold" font-size="13" fill="#888">ОЧІКУВАННЯ ГРАВЦЯ B</text>
+      </svg>
+    </div>
+    <div class="screen-notes">
+      <h3>Призначення</h3>
+      <p>Гравець організовує кооп з другом (асиметричний: піхота / підтримка) або стає в matchmake-чергу.</p>
+      <h3>Ключові елементи</h3>
+      <ul>
+        <li><b>Mode toggle</b>: «З другом» (код запрошення) або «Матчмейк».</li>
+        <li><b>Two-slot layout</b>: ваш слот зеленим, слот другого — пунктирною рамкою «очікування».</li>
+        <li><b>Role labels</b>: ПІХОТА (default Player A) і ПІДТРИМКА (Player B).</li>
+        <li><b>Invite code</b> — короткий, читабельний (6 символів, без 0/O/I/1).</li>
+        <li><b>Invite buttons</b>: Share-link або з друзів.</li>
+        <li><b>Shared Hill of Fame</b> — стимул грати разом, активний бонус.</li>
+        <li><b>Start</b> — деактивовано поки другий не приєднався.</li>
+      </ul>
+      <h3>UX-нотатки</h3>
+      <ul>
+        <li>Можна поміняти ролі (тап по назві ролі).</li>
+        <li>Якщо другий не приєднався за 60 сек — пропонуємо matchmake-фолбек.</li>
+        <li>На MVP — local couch coop (через LAN). Online — Phase 2.</li>
+        <li>Spam-protection: коди оновлюються кожні 10 хв.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FLOW DIAGRAM ============== -->
+<section class="flow-section" id="flow">
+  <h2>Flow-діаграма: переходи між екранами</h2>
+  <p style="margin-bottom: 24px; color: #666;">Чорні стрілки — основний шлях. Помаранчеві — альтернативні переходи. Сірі — повернення назад.</p>
+  <svg class="flow-svg" viewBox="0 0 1100 700" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+        <polygon points="0,0 0,6 8,3" fill="#1F2933"/>
+      </marker>
+      <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+        <polygon points="0,0 0,6 8,3" fill="#B85C38"/>
+      </marker>
+      <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+        <polygon points="0,0 0,6 8,3" fill="#999"/>
+      </marker>
+    </defs>
+
+    <!-- Nodes -->
+    <g class="flow-node">
+      <rect x="20" y="20" width="120" height="40" rx="8" fill="#1F2933"/>
+      <text x="80" y="44" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">1. SPLASH</text>
+    </g>
+
+    <g class="flow-node">
+      <rect x="200" y="20" width="160" height="40" rx="8" fill="#B85C38"/>
+      <text x="280" y="44" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">2. BOOT CAMP (HUB)</text>
+    </g>
+
+    <g>
+      <rect x="200" y="100" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="280" y="123" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">3. Mission Map</text>
+    </g>
+    <g>
+      <rect x="200" y="160" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="280" y="183" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">4. Squad Loadout</text>
+    </g>
+    <g>
+      <rect x="200" y="220" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="280" y="243" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">5. Briefing</text>
+    </g>
+
+    <g class="flow-node">
+      <rect x="200" y="290" width="160" height="60" rx="10" fill="#3F7D3F"/>
+      <text x="280" y="318" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">6. GAMEPLAY</text>
+      <text x="280" y="338" text-anchor="middle" fill="#fff" font-size="9">(core loop)</text>
+    </g>
+
+    <g>
+      <rect x="20" y="290" width="140" height="40" rx="6" fill="#FFD700"/>
+      <text x="90" y="314" text-anchor="middle" fill="#1F2933" font-size="10" font-weight="700">7. Level-Up Perk</text>
+    </g>
+    <g>
+      <rect x="20" y="340" width="140" height="40" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="90" y="364" text-anchor="middle" fill="#1F2933" font-size="10" font-weight="700">8. Pause</text>
+    </g>
+
+    <g>
+      <rect x="200" y="380" width="160" height="36" rx="6" fill="#3F7D3F" stroke="#1F2933"/>
+      <text x="280" y="403" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">9. Victory</text>
+    </g>
+    <g>
+      <rect x="200" y="430" width="160" height="36" rx="6" fill="#C84238" stroke="#1F2933"/>
+      <text x="280" y="453" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">10. Defeat / RIP</text>
+    </g>
+
+    <!-- Meta side -->
+    <g>
+      <rect x="440" y="20" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="520" y="43" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">11. Hill of Fame</text>
+    </g>
+    <g>
+      <rect x="440" y="70" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="520" y="93" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">12. Building Upgrade</text>
+    </g>
+    <g>
+      <rect x="440" y="120" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="520" y="143" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">13. Battle Pass</text>
+    </g>
+    <g>
+      <rect x="440" y="170" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="520" y="193" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">14. Shop</text>
+    </g>
+    <g>
+      <rect x="440" y="220" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="520" y="243" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">15. Daily Missions</text>
+    </g>
+    <g>
+      <rect x="440" y="270" width="160" height="36" rx="6" fill="#fff" stroke="#1F2933"/>
+      <text x="520" y="293" text-anchor="middle" fill="#1F2933" font-size="11" font-weight="700">16. Co-op Lobby</text>
+    </g>
+
+    <!-- Connections -->
+    <!-- Splash → Boot Camp -->
+    <line x1="140" y1="40" x2="195" y2="40" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Boot Camp → Mission Map -->
+    <line x1="280" y1="60" x2="280" y2="98" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Mission Map → Loadout -->
+    <line x1="280" y1="136" x2="280" y2="158" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Loadout → Briefing -->
+    <line x1="280" y1="196" x2="280" y2="218" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Briefing → Gameplay -->
+    <line x1="280" y1="256" x2="280" y2="288" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Gameplay ↔ Level-Up -->
+    <line x1="200" y1="310" x2="160" y2="310" stroke="#B85C38" stroke-width="2" marker-end="url(#arrow-orange)"/>
+    <line x1="160" y1="320" x2="200" y2="320" stroke="#B85C38" stroke-width="2" marker-end="url(#arrow-orange)"/>
+    <!-- Gameplay → Pause -->
+    <line x1="200" y1="340" x2="160" y2="358" stroke="#B85C38" stroke-width="2" marker-end="url(#arrow-orange)"/>
+    <!-- Pause → Gameplay -->
+    <line x1="160" y1="350" x2="200" y2="330" stroke="#999" stroke-width="2" marker-end="url(#arrow-gray)"/>
+
+    <!-- Gameplay → Victory -->
+    <line x1="280" y1="350" x2="280" y2="378" stroke="#3F7D3F" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Gameplay → Defeat -->
+    <line x1="320" y1="350" x2="320" y2="428" stroke="#C84238" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Victory → Boot Camp (loop back) -->
+    <path d="M 200 398 Q 50 440 50 60 Q 50 30 195 30" stroke="#999" stroke-width="2" fill="none" marker-end="url(#arrow-gray)"/>
+    <text x="20" y="200" fill="#999" font-size="10" font-style="italic">повертаємось</text>
+
+    <!-- Boot Camp → Meta items -->
+    <line x1="360" y1="40" x2="438" y2="40" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="360" y1="50" x2="438" y2="88" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="360" y1="50" x2="438" y2="138" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="360" y1="50" x2="438" y2="188" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="360" y1="50" x2="438" y2="238" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="360" y1="50" x2="438" y2="288" stroke="#1F2933" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Co-op Lobby → Gameplay (alt path) -->
+    <path d="M 440 288 Q 380 320 360 320" stroke="#B85C38" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-orange)"/>
+    <text x="395" y="302" fill="#B85C38" font-size="9" font-style="italic">кооп start</text>
+
+    <!-- Daily Missions → Gameplay -->
+    <path d="M 440 238 Q 400 280 360 290" stroke="#B85C38" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-orange)"/>
+
+    <!-- Legend -->
+    <g transform="translate(680,20)">
+      <rect x="0" y="0" width="200" height="160" rx="8" fill="#fff" stroke="#999"/>
+      <text x="10" y="22" font-size="12" font-weight="700" fill="#1F2933">УМОВНІ ПОЗНАЧЕННЯ</text>
+
+      <rect x="10" y="36" width="20" height="12" rx="4" fill="#1F2933"/>
+      <text x="38" y="46" font-size="10" fill="#1F2933">Системний екран</text>
+
+      <rect x="10" y="56" width="20" height="12" rx="4" fill="#fff" stroke="#1F2933"/>
+      <text x="38" y="66" font-size="10" fill="#1F2933">Контентний екран</text>
+
+      <rect x="10" y="76" width="20" height="12" rx="4" fill="#3F7D3F"/>
+      <text x="38" y="86" font-size="10" fill="#1F2933">Геймплейний</text>
+
+      <rect x="10" y="96" width="20" height="12" rx="4" fill="#FFD700"/>
+      <text x="38" y="106" font-size="10" fill="#1F2933">Roguelike-вибір</text>
+
+      <line x1="10" y1="124" x2="30" y2="124" stroke="#1F2933" stroke-width="2"/>
+      <text x="38" y="128" font-size="10" fill="#1F2933">Основний шлях</text>
+
+      <line x1="10" y1="140" x2="30" y2="140" stroke="#B85C38" stroke-width="2"/>
+      <text x="38" y="144" font-size="10" fill="#1F2933">Альтернативний</text>
+    </g>
+
+    <!-- Notes column -->
+    <g transform="translate(680,210)">
+      <rect x="0" y="0" width="380" height="380" rx="8" fill="#fff" stroke="#999"/>
+      <text x="20" y="28" font-size="14" font-weight="700" fill="#B85C38">ПРИНЦИПИ FLOW</text>
+
+      <text x="20" y="56" font-size="11" font-weight="700" fill="#1F2933">▪ 3 тапи до бою</text>
+      <text x="20" y="72" font-size="10" fill="#666">Boot Camp → Mission Map → Loadout → Briefing → У БІЙ</text>
+      <text x="20" y="86" font-size="10" fill="#666">Або 1 тап (велика CTA на хабі = остання місія).</text>
+
+      <text x="20" y="116" font-size="11" font-weight="700" fill="#1F2933">▪ Гра завжди повертає до хаба</text>
+      <text x="20" y="132" font-size="10" fill="#666">Після Victory або Defeat — Boot Camp. Жодних</text>
+      <text x="20" y="146" font-size="10" fill="#666">«deep stack» переходів.</text>
+
+      <text x="20" y="176" font-size="11" font-weight="700" fill="#1F2933">▪ Roguelike-вибір переривається паузою</text>
+      <text x="20" y="192" font-size="10" fill="#666">Level-Up і Pause — модальні вікна на тлі гри.</text>
+      <text x="20" y="206" font-size="10" fill="#666">Не забирають у нову Activity.</text>
+
+      <text x="20" y="236" font-size="11" font-weight="700" fill="#1F2933">▪ Мета-прогресія — на одному рівні</text>
+      <text x="20" y="252" font-size="10" fill="#666">Hill of Fame, Battle Pass, Shop, Daily, Co-op —</text>
+      <text x="20" y="266" font-size="10" fill="#666">паралельні тет-а-тет переходи з хабу. Не вкладені.</text>
+
+      <text x="20" y="296" font-size="11" font-weight="700" fill="#1F2933">▪ Co-op і Daily — швидкий старт у гру</text>
+      <text x="20" y="312" font-size="10" fill="#666">З цих екранів можна стартувати без проходження</text>
+      <text x="20" y="326" font-size="10" fill="#666">повного Loadout-flow (skip-кнопка).</text>
+
+      <text x="20" y="356" font-size="11" font-weight="700" fill="#B85C38">▪ Загалом: 16 екранів MVP</text>
+      <text x="20" y="372" font-size="10" fill="#666">Якщо стане більше — UX перевантажений.</text>
+    </g>
+  </svg>
+</section>
+
+<!-- ============== DECISIONS ============== -->
+<section class="decisions" id="decisions">
+  <h2>UX-рішення «в стилі Fodder»</h2>
+  <p style="margin-bottom: 16px; color: #666;">Там, де було декілька варіантів — прийняв рішення сам, у дусі канону + сучасних мобільних патернів.</p>
+  <table>
+    <thead>
+      <tr><th style="width: 40px;">№</th><th>Питання</th><th>Рішення</th><th>Чому саме так</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Розкладка HUD (твін-стик)</td><td>Joystick зліва, aim справа, граната + спеціал у правому куті</td><td>Точно як на референсних скріншотах. Валідовано Brawl Stars.</td></tr>
+      <tr><td>2</td><td>Permadeath на defeat-екрані</td><td>Revive тільки за рекламу, ліміт 1/забіг</td><td>Зберігає каноноd-Fodder і не вбиває F2P-гравців.</td></tr>
+      <tr><td>3</td><td>Епітафії на надгробках</td><td>Процедурна генерація з 50+ шаблонів</td><td>Емоційний унікум на ринку. Одна з найвразливіших фіч.</td></tr>
+      <tr><td>4</td><td>Pause Menu обсяг</td><td>Стан загону + активні перки + 4 дії</td><td>Не overwhelming, але дає всю критичну інфу.</td></tr>
+      <tr><td>5</td><td>Level-Up: 3 чи 4 картки?</td><td>3 картки + reroll за рекламу</td><td>Класика жанру (Brotato/Vampire Survivors). 4 — overload.</td></tr>
+      <tr><td>6</td><td>Boot Camp як Main Menu?</td><td>Так — 3D-сцена-хаб без окремого меню</td><td>Скорочує число екранів, додає charm. Пер референс Clash Royale.</td></tr>
+      <tr><td>7</td><td>Currency на HUD</td><td>Так, малюсінькі (Coins+XP) — гравець бачить прогрес</td><td>Дофамін у real-time, мотивація грати ще раз.</td></tr>
+      <tr><td>8</td><td>Hill of Fame: окремий екран чи частина бази?</td><td>Окремий екран (з тапу по пагорбу)</td><td>Атмосфера інша (нічна, тиха). Ховаємо для тих, хто шукає.</td></tr>
+      <tr><td>9</td><td>Battle Pass — agresivnyi upsell?</td><td>Маленький, ненав'язливий, з чіткою цінністю</td><td>Hybrid-casual: не лякаємо нових. Знижка −20% на D7.</td></tr>
+      <tr><td>10</td><td>Co-op slot UI</td><td>2 слоти, ваш + waiting (з рамкою)</td><td>Зрозуміло без слів. Animation на «зайшов» — приємний момент.</td></tr>
+      <tr><td>11</td><td>Daily missions: featured chi list?</td><td>1 featured (з модифікатором) + 3 list</td><td>Featured драйвить хайп, list — стабільну активність.</td></tr>
+      <tr><td>12</td><td>Loading screen підказки</td><td>50+ підказок з гумором у дусі Fodder</td><td>Моменту чекати завантаження = моменту усмішки.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer class="doc-footer">
+  Low-poly-Fodder — UI Wireframes v0.1<br>
+  «War has never been so much fun.»
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<div style="position:relative;width:100%;aspect-ratio:19.5/9;background:#1A2520;border-radius:var(--border-radius-lg);overflow:hidden;font-family:sans-serif;">
+<!-- Victory golden glow background -->
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(217,164,65,0.15) 0%,rgba(26,37,32,0.95) 60%,#1A2520 100%);"></div>
+<!-- Subtle rays -->
+<div style="position:absolute;top:0;left:50%;width:2px;height:50%;background:linear-gradient(180deg,rgba(217,164,65,0.15),transparent);transform:rotate(-15deg);transform-origin:top;"></div>
+<div style="position:absolute;top:0;left:50%;width:2px;height:45%;background:linear-gradient(180deg,rgba(217,164,65,0.1),transparent);transform:rotate(15deg);transform-origin:top;"></div>
+<div style="position:absolute;top:0;left:50%;width:2px;height:55%;background:linear-gradient(180deg,rgba(217,164,65,0.08),transparent);transform:rotate(-30deg);transform-origin:top;"></div>
+<div style="position:absolute;top:0;left:50%;width:2px;height:48%;background:linear-gradient(180deg,rgba(217,164,65,0.08),transparent);transform:rotate(30deg);transform-origin:top;"></div>
+
+<!-- VICTORY title -->
+<div style="position:absolute;top:5%;left:0;right:0;text-align:center;z-index:5;">
+  <div style="font-size:30px;font-weight:900;color:#D9A441;text-shadow:0 0 30px rgba(217,164,65,0.4),0 3px 6px rgba(0,0,0,0.6),2px 2px 0 #8B6020;letter-spacing:8px;font-family:'Impact',sans-serif;">VICTORY</div>
+  <div style="font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:3px;margin-top:2px;">MISSION 3 — AMBUSH VALLEY</div>
+</div>
+
+<!-- Stars rating -->
+<div style="position:absolute;top:26%;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:5;">
+  <div style="font-size:28px;color:#D9A441;text-shadow:0 0 15px rgba(217,164,65,0.5);animation:starPop 0.5s ease-out;">&#9733;</div>
+  <div style="font-size:32px;color:#D9A441;text-shadow:0 0 20px rgba(217,164,65,0.6);margin-top:-4px;animation:starPop 0.5s ease-out 0.3s both;">&#9733;</div>
+  <div style="font-size:28px;color:rgba(255,255,255,0.15);text-shadow:none;">&#9733;</div>
+</div>
+
+<!-- Main content area -->
+<div style="position:absolute;top:42%;left:4%;right:4%;bottom:18%;display:flex;gap:12px;z-index:5;">
+  
+  <!-- LEFT: Squad survivors -->
+  <div style="width:35%;background:rgba(0,0,0,0.35);border-radius:8px;padding:10px;border:1px solid rgba(63,125,63,0.2);">
+    <div style="color:#4A8A3A;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">SQUAD STATUS</div>
+    <!-- Alive soldiers -->
+    <div style="display:flex;flex-direction:column;gap:5px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:22px;height:22px;background:#4A8A3A;border-radius:50%;border:2px solid #3A6A2A;flex-shrink:0;"></div>
+        <div style="flex:1;">
+          <div style="color:#fff;font-size:9px;font-weight:600;">Sgt. Volkov</div>
+          <div style="height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:2px;overflow:hidden;"><div style="width:85%;height:100%;background:#44CC44;border-radius:2px;"></div></div>
+        </div>
+        <span style="color:#44CC44;font-size:8px;">ALIVE</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:22px;height:22px;background:#3B6BB5;border-radius:50%;border:2px solid #2A5090;flex-shrink:0;"></div>
+        <div style="flex:1;">
+          <div style="color:#fff;font-size:9px;font-weight:600;">Cpl. Mira</div>
+          <div style="height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:2px;overflow:hidden;"><div style="width:55%;height:100%;background:#CCAA22;border-radius:2px;"></div></div>
+        </div>
+        <span style="color:#CCAA22;font-size:8px;">WOUNDED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:22px;height:22px;background:#C84238;border-radius:50%;border:2px solid #A03028;flex-shrink:0;"></div>
+        <div style="flex:1;">
+          <div style="color:#fff;font-size:9px;font-weight:600;">Pvt. Kruk</div>
+          <div style="height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:2px;overflow:hidden;"><div style="width:30%;height:100%;background:#C84238;border-radius:2px;"></div></div>
+        </div>
+        <span style="color:#C84238;font-size:8px;">CRITICAL</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;opacity:0.4;">
+        <div style="width:22px;height:22px;background:#555;border-radius:50%;border:2px solid #444;flex-shrink:0;position:relative;">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#888;">&#10005;</div>
+        </div>
+        <div style="flex:1;">
+          <div style="color:#888;font-size:9px;font-weight:600;text-decoration:line-through;">Pvt. Zenko</div>
+        </div>
+        <span style="color:#666;font-size:8px;">K.I.A.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER: Stats -->
+  <div style="flex:1;background:rgba(0,0,0,0.35);border-radius:8px;padding:10px;border:1px solid rgba(217,164,65,0.15);">
+    <div style="color:#D9A441;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">MISSION STATS</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+      <div style="background:rgba(255,255,255,0.03);border-radius:4px;padding:6px 8px;text-align:center;">
+        <div style="color:rgba(255,255,255,0.4);font-size:7px;">KILLS</div>
+        <div style="color:#fff;font-size:18px;font-weight:900;">47</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:4px;padding:6px 8px;text-align:center;">
+        <div style="color:rgba(255,255,255,0.4);font-size:7px;">TIME</div>
+        <div style="color:#fff;font-size:18px;font-weight:900;">4:23</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:4px;padding:6px 8px;text-align:center;">
+        <div style="color:rgba(255,255,255,0.4);font-size:7px;">ACCURACY</div>
+        <div style="color:#fff;font-size:18px;font-weight:900;">68%</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:4px;padding:6px 8px;text-align:center;">
+        <div style="color:rgba(255,255,255,0.4);font-size:7px;">PERKS USED</div>
+        <div style="color:#fff;font-size:18px;font-weight:900;">3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Rewards -->
+  <div style="width:28%;background:rgba(0,0,0,0.35);border-radius:8px;padding:10px;border:1px solid rgba(217,164,65,0.15);">
+    <div style="color:#D9A441;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:8px;">REWARDS</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="background:rgba(217,164,65,0.08);border-radius:6px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+        <div style="width:22px;height:22px;background:#D9A441;border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:#fff;font-weight:bold;">G</span></div>
+        <div>
+          <div style="color:#D9A441;font-size:14px;font-weight:900;">+350</div>
+          <div style="color:rgba(255,255,255,0.3);font-size:7px;">GOLD</div>
+        </div>
+      </div>
+      <div style="background:rgba(123,92,184,0.08);border-radius:6px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
+        <div style="width:22px;height:22px;background:#7B5CB8;border-radius:50%;display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:#fff;">*</span></div>
+        <div>
+          <div style="color:#B89CDA;font-size:14px;font-weight:900;">+45</div>
+          <div style="color:rgba(255,255,255,0.3);font-size:7px;">GEMS</div>
+        </div>
+      </div>
+      <!-- XP bar -->
+      <div style="background:rgba(255,255,255,0.03);border-radius:6px;padding:6px 8px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+          <span style="color:rgba(255,255,255,0.4);font-size:7px;">XP</span>
+          <span style="color:#D9A441;font-size:8px;font-weight:700;">+280</span>
+        </div>
+        <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;">
+          <div style="width:85%;height:100%;background:linear-gradient(90deg,#D9A441,#B85C38);border-radius:2px;"></div>
+        </div>
+        <div style="color:rgba(255,255,255,0.3);font-size:7px;margin-top:2px;text-align:right;">LVL 5 → LVL 6</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom buttons -->
+<div style="position:absolute;bottom:4%;left:0;right:0;display:flex;justify-content:center;gap:12px;z-index:5;">
+  <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:8px 24px;cursor:pointer;">
+    <span style="color:#aaa;font-size:12px;font-weight:600;letter-spacing:1px;">CAMP</span>
+  </div>
+  <div style="background:linear-gradient(135deg,#B85C38,#D47A4A);border:2px solid #D9A441;border-radius:8px;padding:8px 30px;box-shadow:0 3px 12px rgba(184,92,56,0.5),inset 0 1px 0 rgba(255,255,255,0.15);cursor:pointer;">
+    <span style="color:#fff;font-size:13px;font-weight:900;letter-spacing:3px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">NEXT MISSION</span>
+  </div>
+</div>
+
+<style>
+@keyframes starPop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+</style>
+</div>

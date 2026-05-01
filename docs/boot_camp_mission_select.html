@@ -1,0 +1,151 @@
+<div style="position:relative;width:100%;aspect-ratio:19.5/9;background:#1A2A1A;border-radius:var(--border-radius-lg);overflow:hidden;font-family:sans-serif;">
+<!-- Map background - tactical top-down map feel -->
+<div style="position:absolute;inset:0;background:linear-gradient(135deg,#2A3A28 0%,#3A5A3A 30%,#4A6A3A 50%,#3A5530 70%,#2A4025 100%);"></div>
+<!-- Map grid lines -->
+<div style="position:absolute;inset:0;opacity:0.06;background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);background-size:40px 40px;"></div>
+<!-- Map contour lines -->
+<svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08;" viewBox="0 0 680 314" preserveAspectRatio="none">
+<ellipse cx="200" cy="150" rx="120" ry="80" fill="none" stroke="#fff" stroke-width="0.5"/>
+<ellipse cx="200" cy="150" rx="90" ry="60" fill="none" stroke="#fff" stroke-width="0.5"/>
+<ellipse cx="480" cy="200" rx="100" ry="70" fill="none" stroke="#fff" stroke-width="0.5"/>
+<ellipse cx="480" cy="200" rx="70" ry="50" fill="none" stroke="#fff" stroke-width="0.5"/>
+<path d="M0,100 Q150,60 300,90 Q450,120 680,80" fill="none" stroke="#fff" stroke-width="0.5"/>
+<path d="M0,200 Q200,170 400,210 Q550,240 680,200" fill="none" stroke="#fff" stroke-width="0.5"/>
+</svg>
+
+<!-- River on map -->
+<svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.3;" viewBox="0 0 680 314" preserveAspectRatio="none">
+<path d="M0,180 Q80,160 150,190 Q220,220 300,195 Q380,170 450,200 Q520,230 600,210 Q650,200 680,215" fill="none" stroke="#3B6BB5" stroke-width="3" stroke-linecap="round"/>
+</svg>
+
+<!-- Top bar -->
+<div style="position:absolute;top:0;left:0;right:0;height:32px;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:space-between;padding:0 12px;z-index:10;">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <div style="color:rgba(255,255,255,0.5);font-size:16px;cursor:pointer;">&larr;</div>
+    <span style="color:#D9A441;font-size:14px;font-weight:800;letter-spacing:3px;">BOOT CAMP</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div style="width:14px;height:14px;background:#4A8A3A;border-radius:2px;display:flex;align-items:center;justify-content:center;"><span style="font-size:8px;color:#fff;font-weight:bold;">4</span></div>
+    <span style="color:#aaa;font-size:10px;">SQUAD READY</span>
+  </div>
+</div>
+
+<!-- Zone/Chapter tabs (left side) -->
+<div style="position:absolute;left:0;top:32px;width:60px;bottom:0;background:rgba(0,0,0,0.4);display:flex;flex-direction:column;padding-top:10px;gap:4px;z-index:5;">
+  <div style="padding:8px 4px;text-align:center;background:rgba(63,125,63,0.4);border-right:2px solid #4A8A3A;border-radius:0;">
+    <div style="font-size:7px;color:#4A8A3A;font-weight:700;letter-spacing:1px;">ACT I</div>
+    <div style="width:20px;height:20px;margin:4px auto;background:#3F7D3F;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:12px;color:#fff;">&#127795;</span>
+    </div>
+    <div style="font-size:6px;color:#8BA888;">Jungle</div>
+  </div>
+  <div style="padding:8px 4px;text-align:center;opacity:0.5;">
+    <div style="font-size:7px;color:#888;font-weight:700;letter-spacing:1px;">ACT II</div>
+    <div style="width:20px;height:20px;margin:4px auto;background:#555;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:11px;color:#aaa;">&#10052;</span>
+    </div>
+    <div style="font-size:6px;color:#666;">Snow</div>
+    <div style="font-size:6px;color:#666;margin-top:2px;">&#128274;</div>
+  </div>
+  <div style="padding:8px 4px;text-align:center;opacity:0.3;">
+    <div style="font-size:7px;color:#666;font-weight:700;">ACT III</div>
+    <div style="width:20px;height:20px;margin:4px auto;background:#444;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:11px;color:#777;">&#127959;</span>
+    </div>
+    <div style="font-size:6px;color:#555;">Desert</div>
+    <div style="font-size:6px;color:#555;margin-top:2px;">&#128274;</div>
+  </div>
+</div>
+
+<!-- Mission nodes on map -->
+<!-- Mission 1 - completed (green) -->
+<div style="position:absolute;top:30%;left:16%;z-index:3;">
+  <div style="width:36px;height:36px;background:#3F7D3F;border:2.5px solid #5AAA5A;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(63,125,63,0.5);">
+    <span style="color:#fff;font-size:14px;font-weight:900;">&#10003;</span>
+  </div>
+  <div style="text-align:center;margin-top:3px;color:#8BA888;font-size:8px;font-weight:600;">Outpost</div>
+  <div style="text-align:center;color:rgba(255,255,255,0.3);font-size:7px;">&#9733;&#9733;&#9733;</div>
+</div>
+
+<!-- Path line 1→2 -->
+<svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;" viewBox="0 0 680 314" preserveAspectRatio="none">
+<path d="M140,110 Q180,120 210,145 Q240,165 270,155" fill="none" stroke="#5AAA5A" stroke-width="2" stroke-dasharray="6,4" opacity="0.6"/>
+<path d="M285,160 Q320,170 360,150 Q390,135 400,135" fill="none" stroke="#D9A441" stroke-width="2" stroke-dasharray="6,4" opacity="0.5"/>
+<path d="M420,140 Q460,155 490,180 Q510,195 530,185" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-dasharray="6,4"/>
+</svg>
+
+<!-- Mission 2 - completed (green) -->
+<div style="position:absolute;top:42%;left:35%;z-index:3;">
+  <div style="width:36px;height:36px;background:#3F7D3F;border:2.5px solid #5AAA5A;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(63,125,63,0.5);">
+    <span style="color:#fff;font-size:14px;font-weight:900;">&#10003;</span>
+  </div>
+  <div style="text-align:center;margin-top:3px;color:#8BA888;font-size:8px;font-weight:600;">River Cross</div>
+  <div style="text-align:center;color:#D9A441;font-size:7px;">&#9733;&#9733;&#9734;</div>
+</div>
+
+<!-- Mission 3 - current (gold, glowing) -->
+<div style="position:absolute;top:34%;left:55%;z-index:3;">
+  <div style="width:42px;height:42px;background:linear-gradient(135deg,#B85C38,#D9A441);border:3px solid #D9A441;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(217,164,65,0.6),0 0 40px rgba(217,164,65,0.2);animation:pulse 2s infinite;">
+    <span style="color:#fff;font-size:16px;font-weight:900;">3</span>
+  </div>
+  <div style="text-align:center;margin-top:3px;color:#D9A441;font-size:9px;font-weight:700;">Ambush Valley</div>
+  <div style="text-align:center;color:rgba(255,255,255,0.3);font-size:7px;">&#9734;&#9734;&#9734;</div>
+</div>
+
+<!-- Mission 4 - locked -->
+<div style="position:absolute;top:52%;left:73%;z-index:3;opacity:0.4;">
+  <div style="width:34px;height:34px;background:#333;border:2px solid #555;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+    <span style="color:#888;font-size:12px;">&#128274;</span>
+  </div>
+  <div style="text-align:center;margin-top:3px;color:#666;font-size:8px;font-weight:600;">Dense Jungle</div>
+</div>
+
+<!-- Mission 5 - locked (boss) -->
+<div style="position:absolute;top:25%;left:82%;z-index:3;opacity:0.3;">
+  <div style="width:44px;height:44px;background:#333;border:2px solid #C84238;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+    <span style="color:#C84238;font-size:16px;">&#9760;</span>
+  </div>
+  <div style="text-align:center;margin-top:3px;color:#666;font-size:8px;font-weight:700;">BOSS</div>
+  <div style="text-align:center;color:#666;font-size:6px;">Temple Ruins</div>
+</div>
+
+<!-- Selected mission info panel (bottom) -->
+<div style="position:absolute;bottom:0;left:60px;right:0;height:80px;background:rgba(0,0,0,0.7);border-top:1px solid rgba(217,164,65,0.3);z-index:5;display:flex;align-items:center;padding:0 15px;gap:15px;">
+  <!-- Mission preview -->
+  <div style="width:90px;height:60px;background:linear-gradient(135deg,#2A5535,#3F7D3F);border-radius:6px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative;">
+    <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:#2A4530;"></div>
+    <div style="position:absolute;bottom:30%;left:20%;width:8px;height:15px;background:#5A7A3A;border-radius:2px;"></div>
+    <div style="position:absolute;bottom:30%;right:25%;width:6px;height:12px;background:#6B4226;border-radius:1px;"></div>
+    <span style="color:rgba(255,255,255,0.4);font-size:18px;z-index:1;">&#9876;</span>
+  </div>
+  <!-- Mission details -->
+  <div style="flex:1;">
+    <div style="color:#D9A441;font-size:12px;font-weight:800;letter-spacing:1px;">MISSION 3: AMBUSH VALLEY</div>
+    <div style="color:#aaa;font-size:9px;margin-top:3px;line-height:1.4;">Enemy patrol spotted in the valley. Clear all waves to advance. Watch for flanking Rushers.</div>
+    <div style="display:flex;gap:12px;margin-top:5px;">
+      <div style="display:flex;align-items:center;gap:3px;">
+        <div style="width:8px;height:8px;background:#C84238;border-radius:50%;"></div>
+        <span style="color:#aaa;font-size:8px;">3 WAVES</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:3px;">
+        <div style="width:8px;height:8px;background:#D9A441;border-radius:2px;"></div>
+        <span style="color:#aaa;font-size:8px;">MEDIUM</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:3px;">
+        <div style="width:8px;height:8px;background:#3B6BB5;border-radius:2px;"></div>
+        <span style="color:#aaa;font-size:8px;">~5 MIN</span>
+      </div>
+    </div>
+  </div>
+  <!-- Deploy button -->
+  <div style="flex-shrink:0;">
+    <div style="background:linear-gradient(135deg,#B85C38,#D47A4A);border:2px solid #D9A441;border-radius:8px;padding:10px 24px;text-align:center;box-shadow:0 3px 12px rgba(184,92,56,0.5),inset 0 1px 0 rgba(255,255,255,0.15);cursor:pointer;">
+      <div style="color:#fff;font-size:14px;font-weight:900;letter-spacing:3px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">DEPLOY</div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes pulse{0%,100%{box-shadow:0 0 20px rgba(217,164,65,0.6),0 0 40px rgba(217,164,65,0.2)}50%{box-shadow:0 0 30px rgba(217,164,65,0.8),0 0 60px rgba(217,164,65,0.3)}}
+</style>
+</div>

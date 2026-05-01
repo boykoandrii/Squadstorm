@@ -1,0 +1,146 @@
+<div style="position:relative;width:100%;aspect-ratio:19.5/9;background:#1A2520;border-radius:var(--border-radius-lg);overflow:hidden;font-family:sans-serif;">
+<!-- Dark military background -->
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,#2A3A30 0%,#1A2520 70%);"></div>
+
+<!-- Dim grid overlay -->
+<div style="position:absolute;inset:0;opacity:0.04;background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);background-size:30px 30px;"></div>
+
+<!-- Top bar -->
+<div style="position:absolute;top:0;left:0;right:0;height:30px;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:10;">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span style="color:rgba(255,255,255,0.4);font-size:14px;">&larr;</span>
+    <span style="color:#C84238;font-size:12px;font-weight:800;letter-spacing:2px;">MISSION BRIEFING</span>
+  </div>
+  <span style="color:rgba(255,255,255,0.3);font-size:9px;">ACT I — MISSION 3</span>
+</div>
+
+<!-- LEFT: Tactical map preview -->
+<div style="position:absolute;top:36px;left:14px;width:48%;bottom:50px;background:rgba(0,0,0,0.3);border:1px solid rgba(63,125,63,0.2);border-radius:8px;overflow:hidden;">
+  <!-- Mini tactical map -->
+  <div style="position:relative;width:100%;height:100%;background:linear-gradient(135deg,#2A4530 0%,#3A5A3A 50%,#2A4025 100%);">
+    <!-- Grid -->
+    <div style="position:absolute;inset:0;opacity:0.06;background-image:linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px);background-size:25px 25px;"></div>
+    
+    <!-- Terrain features -->
+    <!-- River -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 330 220" preserveAspectRatio="none">
+      <path d="M0,120 Q60,100 120,130 Q180,160 240,140 Q300,120 330,135" fill="none" stroke="rgba(59,107,181,0.4)" stroke-width="6" stroke-linecap="round"/>
+      <!-- Spawn zone -->
+      <rect x="20" y="150" width="50" height="40" rx="4" fill="none" stroke="#4A8A3A" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="45" y="175" text-anchor="middle" fill="#4A8A3A" font-size="8" font-weight="bold">SPAWN</text>
+      <!-- Enemy zones -->
+      <circle cx="160" cy="80" r="25" fill="rgba(200,66,56,0.1)" stroke="#C84238" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="160" y="83" text-anchor="middle" fill="#C84238" font-size="7">WAVE 1</text>
+      <circle cx="260" cy="60" r="30" fill="rgba(200,66,56,0.1)" stroke="#C84238" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="260" y="57" text-anchor="middle" fill="#C84238" font-size="7">WAVE 2</text>
+      <text x="260" y="68" text-anchor="middle" fill="#C84238" font-size="6">+ RUSHER</text>
+      <circle cx="280" cy="150" r="28" fill="rgba(200,66,56,0.15)" stroke="#C84238" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="280" y="148" text-anchor="middle" fill="#C84238" font-size="7" font-weight="bold">WAVE 3</text>
+      <text x="280" y="159" text-anchor="middle" fill="#C84238" font-size="6">HEAVY</text>
+      <!-- Arrows showing path -->
+      <path d="M70,170 Q110,140 140,95" fill="none" stroke="rgba(217,164,65,0.4)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#briefArrow)"/>
+      <path d="M175,80 Q210,70 240,65" fill="none" stroke="rgba(217,164,65,0.3)" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#briefArrow)"/>
+      <!-- Cover positions -->
+      <rect x="100" y="100" width="12" height="8" rx="1" fill="#8B7355" opacity="0.6"/>
+      <rect x="200" y="130" width="14" height="8" rx="1" fill="#8B7355" opacity="0.5"/>
+      <!-- Trees -->
+      <circle cx="50" cy="80" r="8" fill="rgba(42,101,42,0.5)"/>
+      <circle cx="80" cy="60" r="6" fill="rgba(42,101,42,0.4)"/>
+      <circle cx="130" cy="180" r="7" fill="rgba(42,101,42,0.5)"/>
+      <circle cx="300" cy="100" r="9" fill="rgba(42,101,42,0.4)"/>
+      <defs><marker id="briefArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="rgba(217,164,65,0.5)" stroke-width="1.5"/></marker></defs>
+    </svg>
+    
+    <!-- Map label -->
+    <div style="position:absolute;bottom:4px;left:6px;color:rgba(255,255,255,0.3);font-size:7px;letter-spacing:1px;">AMBUSH VALLEY — TACTICAL VIEW</div>
+    <!-- Legend -->
+    <div style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);border-radius:4px;padding:4px 6px;">
+      <div style="display:flex;align-items:center;gap:3px;margin-bottom:2px;">
+        <div style="width:6px;height:6px;background:#4A8A3A;border-radius:1px;"></div>
+        <span style="color:#aaa;font-size:6px;">Allies</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:3px;margin-bottom:2px;">
+        <div style="width:6px;height:6px;background:#C84238;border-radius:50%;"></div>
+        <span style="color:#aaa;font-size:6px;">Enemies</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:3px;">
+        <div style="width:6px;height:6px;background:#8B7355;border-radius:1px;"></div>
+        <span style="color:#aaa;font-size:6px;">Cover</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT: Mission info -->
+<div style="position:absolute;top:36px;right:14px;width:44%;bottom:50px;display:flex;flex-direction:column;gap:8px;">
+  <!-- Mission title -->
+  <div style="background:rgba(0,0,0,0.4);border-radius:6px;padding:10px 12px;border-left:3px solid #D9A441;">
+    <div style="color:#D9A441;font-size:14px;font-weight:800;letter-spacing:1px;">AMBUSH VALLEY</div>
+    <div style="color:#aaa;font-size:9px;margin-top:4px;line-height:1.5;">Intel reports heavy enemy activity in the valley corridor. Expect multiple waves with armored units in the final push. Use natural cover and watch your flanks.</div>
+  </div>
+
+  <!-- Objectives -->
+  <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:8px 12px;">
+    <div style="color:#B85C38;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:6px;">OBJECTIVES</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:14px;height:14px;background:rgba(200,66,56,0.2);border:1px solid #C84238;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#C84238;font-size:8px;">!</span></div>
+        <span style="color:#ddd;font-size:9px;">Survive all 3 enemy waves</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:14px;height:14px;background:rgba(217,164,65,0.15);border:1px solid rgba(217,164,65,0.3);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#D9A441;font-size:8px;">&#9733;</span></div>
+        <span style="color:#aaa;font-size:9px;">Keep all soldiers alive</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div style="width:14px;height:14px;background:rgba(217,164,65,0.15);border:1px solid rgba(217,164,65,0.3);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:#D9A441;font-size:8px;">&#9733;</span></div>
+        <span style="color:#aaa;font-size:9px;">Complete in under 4 minutes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enemy intel -->
+  <div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:8px 12px;flex:1;">
+    <div style="color:#C84238;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:6px;">ENEMY INTEL</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:4px;background:rgba(200,66,56,0.1);padding:3px 8px;border-radius:4px;">
+        <div style="width:8px;height:10px;background:#666;border-radius:2px;"></div>
+        <span style="color:#ccc;font-size:8px;">Grunt x8</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;background:rgba(200,66,56,0.1);padding:3px 8px;border-radius:4px;">
+        <div style="width:8px;height:10px;background:#884422;border-radius:2px;"></div>
+        <span style="color:#ccc;font-size:8px;">Rusher x3</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;background:rgba(200,66,56,0.1);padding:3px 8px;border-radius:4px;">
+        <div style="width:8px;height:10px;background:#556B2F;border-radius:2px;"></div>
+        <span style="color:#ccc;font-size:8px;">Sniper x2</span>
+      </div>
+    </div>
+    <div style="margin-top:6px;display:flex;gap:10px;">
+      <div><span style="color:#888;font-size:7px;">DIFFICULTY</span><br/><span style="color:#D9A441;font-size:10px;font-weight:700;">MEDIUM</span></div>
+      <div><span style="color:#888;font-size:7px;">EST. TIME</span><br/><span style="color:#ccc;font-size:10px;font-weight:700;">~5 MIN</span></div>
+      <div><span style="color:#888;font-size:7px;">REWARD</span><br/><span style="color:#D9A441;font-size:10px;font-weight:700;">350 G</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom action bar -->
+<div style="position:absolute;bottom:0;left:0;right:0;height:44px;background:rgba(0,0,0,0.6);border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:5;">
+  <!-- Squad preview -->
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div style="width:26px;height:26px;background:#4A8A3A;border-radius:50%;border:2px solid #3A6A2A;"></div>
+    <div style="width:24px;height:24px;background:#3B6BB5;border-radius:50%;border:2px solid #2A5090;"></div>
+    <div style="width:24px;height:24px;background:#C84238;border-radius:50%;border:2px solid #A03028;"></div>
+    <div style="width:22px;height:22px;background:#D9A441;border-radius:50%;border:2px solid #B08030;"></div>
+    <span style="color:rgba(255,255,255,0.3);font-size:8px;margin-left:4px;">4 soldiers ready</span>
+  </div>
+  <!-- Buttons -->
+  <div style="display:flex;gap:8px;">
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:6px 16px;cursor:pointer;">
+      <span style="color:#aaa;font-size:11px;font-weight:600;">EDIT SQUAD</span>
+    </div>
+    <div style="background:linear-gradient(135deg,#B85C38,#D47A4A);border:2px solid #D9A441;border-radius:8px;padding:8px 28px;box-shadow:0 3px 12px rgba(184,92,56,0.5),inset 0 1px 0 rgba(255,255,255,0.15);cursor:pointer;">
+      <span style="color:#fff;font-size:14px;font-weight:900;letter-spacing:3px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">DEPLOY!</span>
+    </div>
+  </div>
+</div>
+</div>
