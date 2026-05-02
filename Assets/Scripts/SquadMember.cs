@@ -5,7 +5,8 @@ public class SquadMember : MonoBehaviour
 {
     public Transform player; // Посилання на гравця
     public float speed = 4f; 
-    public float stoppingDistance = 2f; 
+    [Header("Формація")]
+    public float formationRadius = 2f; // На якій відстані від командира стоять солдати
     public float separationDistance = 1.5f; 
     
     [Header("Стрибки")]
@@ -20,6 +21,9 @@ public class SquadMember : MonoBehaviour
     private float yVelocity = 0f;
     private bool shouldJump = false; 
     private CharacterController controller;
+    
+    [Header("Анімація")]
+    public Animator animator; // Компонент для керування анімаціями
     
     private bool isAiming = false; // Чи віддав командир наказ цілитись
     private Vector3 aimTarget;     // Точка, в яку цілимось
@@ -46,13 +50,25 @@ public class SquadMember : MonoBehaviour
         {
             Vector3 moveDirection = Vector3.zero;
             
-            // 1. Рух до гравця
-            Vector3 playerPosXZ = new Vector3(player.position.x, transform.position.y, player.position.z);
-            float distanceToPlayer = Vector3.Distance(transform.position, playerPosXZ);
+            // 1. Рух на свою позицію у формації (коло навколо гравця)
+            int myIndex = allMembers.IndexOf(this);
+            int totalMembers = allMembers.Count;
             
-            if (distanceToPlayer > stoppingDistance)
+            // Розраховуємо кут для цього конкретного солдата (в радіанах)
+            float angle = myIndex * (Mathf.PI * 2f / Mathf.Max(1, totalMembers));
+            
+            // Обчислюємо зміщення відносно гравця
+            Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * formationRadius;
+            
+            Vector3 playerPosXZ = new Vector3(player.position.x, transform.position.y, player.position.z);
+            Vector3 targetPosition = playerPosXZ + offset;
+            
+            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+            
+            // Якщо ми ще не дійшли до своєї позиції - рухаємось до неї
+            if (distanceToTarget > 0.5f)
             {
-                moveDirection = (playerPosXZ - transform.position).normalized;
+                moveDirection = (targetPosition - transform.position).normalized;
             }
 
             // --- КУДИ ДИВИТЬСЯ СОЛДАТ ---
@@ -62,10 +78,10 @@ public class SquadMember : MonoBehaviour
                 Vector3 lookPos = new Vector3(aimTarget.x, transform.position.y, aimTarget.z);
                 transform.LookAt(lookPos);
             }
-            else if (moveDirection != Vector3.zero)
+            else 
             {
-                // Якщо не цілимося, але біжимо — дивимося вперед
-                transform.LookAt(playerPosXZ);
+                // Якщо не цілимося — дивимося туди ж, куди й командир (щоб завжди бачити куди стріляти)
+                transform.rotation = player.rotation;
             }
 
             // 2. Відштовхування від сусідів
@@ -109,6 +125,13 @@ public class SquadMember : MonoBehaviour
         Vector3 finalVelocity = horizontalMove;
         finalVelocity.y = yVelocity;
         controller.Move(finalVelocity * Time.deltaTime);
+
+        // --- АНІМАЦІЯ ---
+        if (animator != null)
+        {
+            // Передаємо швидкість (довжину вектора руху) в Animator
+            animator.SetFloat("Speed", horizontalMove.magnitude);
+        }
     }
 
     public void Jump()

@@ -22,6 +22,9 @@ namespace Squadstorm.Core
         public float fireRate = 0.3f; // Швидкість стрільби
         private float nextFireTime = 0f;
 
+        [Header("Анімація")]
+        public Animator animator; // Компонент для керування анімаціями
+
         private float yVelocity = 0f;
         private CharacterController controller;
         private bool mobileJumpRequested = false; 
@@ -211,6 +214,14 @@ namespace Squadstorm.Core
 
             velocity.y = yVelocity;
             controller.Move(velocity * Time.deltaTime);
+
+            // --- АНІМАЦІЯ ---
+            if (animator != null)
+            {
+                // Передаємо швидкість руху в Animator (наприклад, від 0 до moveSpeed)
+                // Використовуємо .magnitude, щоб знати, чи гравець взагалі рухається
+                animator.SetFloat("Speed", velocity.magnitude);
+            }
         }
     }
 }
